@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<todo version="0.1.20">
+    <note priority="medium" time="1201555790">
+        more advanced gawk backend
+    </note>
+    <note priority="medium" time="1201555816">
+        including a pretty stylesheet by default
+    </note>
+    <note priority="medium" time="1201556429">
+        pretty code visualization (with colors, for example)
+    </note>
+</todo>

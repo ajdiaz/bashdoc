@@ -1,0 +1,17 @@
+======
+README
+======
+
+This script is a frontend for various awk(1) scripts which parse a bash
+script (file) and create a documentation in specified format. This script
+works similar to javadoc for java projects.
+
+In library directory you can found an example of basic backend for
+gawk.
+
+Requirements
+============
+ssh-keysend is written in bash, and require almost bash >= 3.0,
+gawk >= 3.1.5, docutils >= 0.4 and GNU coreutils.
+
+Andrés J. Díaz <ajdiaz@connectical.net>

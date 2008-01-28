@@ -1,0 +1,106 @@
+#! /bin/bash
+# Copyright (c) 2007 Andrés J. Díaz <ajdiaz@connectical.net>
+#
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation
+# files (the "Software"), to deal in the Software without restriction,
+# including without limitation the rights to use, copy, modify, merge,
+# publish, distribute, sublicense, and/or sell copies of the Software,
+# and to permit persons to whom the Software is furnished to do so,
+# subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+TEXTDOMAIN="bashdoc"
+
+# Common usefull functions forever and ever.
+fatal   () { echo "fatal: $@" >&2 ; ${E:+exit $E}; }
+require () { type -p "$1" 2>&1 >/dev/null; }
+
+# The help function which prints a sort help message in the screen.
+help ()
+{
+	echo "$0 [options] [format] <bash_script>"
+	echo
+	echo "bashdoc parses a bash script file and try to get some information"
+	echo "using special comments in the code. This script works similar to"
+	echo "javadoc for java projects."
+	echo
+	echo "Options:"
+	echo "  -h       display this help screen"
+	echo "  -o file  use file as output file"
+	echo "  -r str   pass the string 'str' to docutils in raw"
+	echo "  -H hdlr  change the parser handler"
+	echo
+	echo "Formats:"
+	local IFS=':'
+	local abs=
+	for item in $PATH ; do
+		local ret="$(eval "echo $item/rst2*")"
+		[[ "$ret" != *\* ]] && abs="${abs} ${ret//$item\/rst2/}"
+	done
+	echo " ${abs//.py/}"
+	echo
+	echo "Andrés J. Díaz <ajdiaz@connectical.net>"
+}
+
+# The rst_maker function create a rst from a bash script. The basic bashdoc
+# installation must provide a basic parser. Custom parser with more
+# options or adapter yourself can be located into ``$BASHDOC_LIB`` path,
+# al also you are welcome to publish them :)
+rst_maker ()
+{
+	awk -f "${BASHDOC_LIB:-/usr/lib/bashdoc}/${handler:-basic}.awk" \
+		"$1"
+}
+
+# Parse options in command line using getopts. Read the help function or
+# call the script with -h flag for more information.
+while getopts "hvo:r:H:" option "$@"; do
+	case $option in
+		h) help && exit 0 ;;
+		o) output_file="$OPTARG" ;;
+		r) raw_command="$OPTARG" ;;
+		H) handler="$OPTARG" ;;
+	esac
+done ; shift $((OPTIND -1))
+
+# Check for mandatory arguments in command line, if not argument supply then
+# exit with error.
+[ "$1" ] || E=1 fatal $"argument required"
+
+# Manage the format specification using the first argument if exists, if
+# not, then use "html" as default format.
+if [ $# -eq 2 ] ; then
+	format="$1" && shift
+else
+	format="html"
+fi
+
+# Determine in .py extension is present in rst2* scripts. Debian and other
+# deb-based distributions omit the extension of the scripts.
+require rst2${format} || { require rst2${format}.py && py=".py" ;} ||
+	E=1 fatal $"rst backend not found (rst2${format})"
+
+# Redirect output to output_file if present.
+if [ "${output_file}" ]; then
+	exec 1>$output_file
+fi
+
+# Handler for none format (aka raw, aka rst). If none format is used, then
+# result is in plain rst format.
+case $2 in
+	none|raw|rst) rst_maker "$1";;
+	*) rst_maker "$1" | rst2${format}${py} ;;
+esac
+
+#- vim:foldmethod=syntax:foldenable:
