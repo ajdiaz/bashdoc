@@ -86,6 +86,10 @@ else
 	format="html"
 fi
 
+# Check if handler is present in library, if not then exit with error code 2.
+[ -r "${BASHDOC_LIB:-/usr/lib/bashdoc}/${handler:=basic}.awk" ] || \
+	E=2 fatal $"handler ${handler} not found"
+
 # Determine in .py extension is present in rst2* scripts. Debian and other
 # deb-based distributions omit the extension of the scripts.
 require rst2${format} || { require rst2${format}.py && py=".py" ;} ||
