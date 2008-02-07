@@ -50,7 +50,7 @@ rst2X scripts in PATH. Usually you want html or latex.
 REQUIREMENTS
 ============
 
-ssh-keysend is written in bash, and require almost bash >= 3.0,
+bashdoc is written in bash, and require almost bash >= 3.0,
 gawk >= 3.1.5, docutils >= 0.4 and GNU coreutils.
 
 SEE ALSO
