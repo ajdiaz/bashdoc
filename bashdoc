@@ -92,8 +92,10 @@ fi
 
 # Determine in .py extension is present in rst2* scripts. Debian and other
 # deb-based distributions omit the extension of the scripts.
-require rst2${format} || { require rst2${format}.py && py=".py" ;} ||
-	E=1 fatal $"rst backend not found (rst2${format})"
+case $format in
+	none|raw|rst) ;;
+	*) require rst2${format} || { require rst2${format}.py && py=".py" ;} || E=1 fatal $"rst backend not found (rst2${format})" ;;
+esac
 
 # Redirect output to output_file if present.
 if [ "${output_file}" ]; then
@@ -102,9 +104,8 @@ fi
 
 # Handler for none format (aka raw, aka rst). If none format is used, then
 # result is in plain rst format.
-case $2 in
+case $format in
 	none|raw|rst) rst_maker "$1";;
 	*) rst_maker "$1" | rst2${format}${py} ;;
 esac
 
-#- vim:foldmethod=syntax:foldenable:
