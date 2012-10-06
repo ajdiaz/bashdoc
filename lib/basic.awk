@@ -15,7 +15,7 @@ BEGIN { last_comment=0; }
 # Code block parser. We consider a code block everthing which are not
 # a comment block. We print the :: mark (starts a pre-formated block in RST)
 # only at the beggining of code block.
-/^[:space:]*[^#\n].*/ {
+/^[[:space:]]*[^#\n].*/ {
 	if (last_comment == 1)
 		printf "\n\n::\n\n"
 	last_comment=0
