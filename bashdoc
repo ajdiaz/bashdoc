@@ -1246,7 +1246,7 @@ main () {
   arg::opt MAIN -f --file    main::opt_file    'add more section files'
   arg::opt MAIN -a --api     main::opt_api     'set api to be documented'
   arg::opt MAIN -s --style   main::opt_style   'path to CSS stylesheet'
-  arg::opt MAIN -t --template  main::opt_style   'path to HTML template'
+  arg::opt MAIN -t --template  main::opt_template   'path to HTML template'
   arg::opt MAIN -H --highlight-theme  main::opt_highlight \
     'theme name to highlight code'
 
