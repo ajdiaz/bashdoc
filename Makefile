@@ -3,6 +3,11 @@
 # ajdiaz, 2016-02-07 09:19
 #
 
+# It is uncleaer how to install bashdoc on MacOS
+# I clone the repo, and run make, but bashdoc is not available as a command line program
+# it is very annoying to not have an issues tracker.
+# if the the issue tracker is hosted somewhere other than Github, it is not readily obvious.
+
 SRCDIR=src
 OUTBIN=./bashdoc
 REQUIREMENTS=./requirements.txt
