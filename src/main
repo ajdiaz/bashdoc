@@ -32,7 +32,7 @@ main::opt_output () { OUTPUT="$1"; return 2; }
 main::opt_date () { DATE="$(date +%Y-%m-%d)"; return 1; }
 main::opt_file () { opt_files="$opt_files $1"; return 2; }
 main::opt_api () { API="$1"; return 2; }
-main::opt_style () { __opt__style="$1"; return 2; }
+main::opt_style () { __opt__style="$1"; echo "$@" ; return 2; }
 main::opt_template () { __opt__template="$1"; return 2; }
 main::opt_highlight () { __opt__highlight="$1"; return 2; }
 
@@ -44,14 +44,14 @@ main::action () {
 
 main () {
   arg::opt MAIN -V --version main::opt_version 'show program version number'
-  arg::opt MAIN -t --title   main::opt_title   'set the title of the document'
+  arg::opt MAIN -T --title   main::opt_title   'set the title of the document'
   arg::opt MAIN -a --author  main::opt_author  'set the author of the document'
   arg::opt MAIN -o --output  main::opt_output  'set the output file name'
-  arg::opt MAIN -d --include-date  main::opt_date  'add date to the document'
-  arg::opt MAIN -f --file    main::opt_file    'add more section files'
-  arg::opt MAIN -a --api     main::opt_api     'set api to be documented'
-  arg::opt MAIN -s --style   main::opt_style   'path to CSS stylesheet'
-  arg::opt MAIN -t --template  main::opt_style   'path to HTML template'
+  arg::opt MAIN -d --include-date  main::opt_date   'add date to the document'
+  arg::opt MAIN -f --file    main::opt_file         'add more section files'
+  arg::opt MAIN -a --api     main::opt_api          'set api to be documented'
+  arg::opt MAIN -s --style   main::opt_style        'path to CSS stylesheet'
+  arg::opt MAIN -t --template  main::opt_template   'path to HTML template'
   arg::opt MAIN -H --highlight-theme  main::opt_highlight \
     'theme name to highlight code'
 

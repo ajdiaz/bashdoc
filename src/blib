@@ -4,8 +4,8 @@
 # txt: The `arg` module provides a number of functions to parse arguments
 #      from command line.
 #
-#      To use `arg` module you need to create handler functions which will
-#      be call during the parser process. The handler functions sould return
+#      To use the `arg` module you need to create handler functions which will
+#      be called during the parser process. The handler functions should return
 #      the number of parameters comsumed from the parameter list. See
 #      example below for more information.
 # use: opt_quiet () {
@@ -534,6 +534,47 @@ os::release::ubuntu () {
   echo "$release"
 }
 #! /bin/bash
+# mod: term
+# api: blib
+# txt: The `term` module provides functions related with terminal
+#      configuration. This module also define some useful color variables to
+#      be used in `out` module.
+
+# fun: term::attached
+# api: blib
+# txt: return true if output is a terminal, false otherwise
+term::attached () { [ -t 1 ] && ! ${BLIB_DISABLE_COLORS:-false}; }
+
+# fun: term::tcap <capability>
+# api: blib
+# txt: check if some capabilty is enabled in terminal
+term::tcap () { tput "$1" 2>/dev/null; }
+
+# fun: term::init
+# api: blib
+# txt: initialize terminal, in theory you never need to call this function,
+#      unless you want to change your terminal online.
+term::init () {
+  if term::attached; then
+    case "$(term::tcap colors)" in
+      256)
+        COLOR_NONE=$'\033[0;0;0m'
+        COLOR_INFO=$'\033[38;5;79m'
+        COLOR_WARN=$'\033[38;5;190m'
+        COLOR_FAIL=$'\033[38;5;160m'
+        COLOR_DATE=$'\033[38;5;242m'
+        COLOR_USER=$'\033[38;5;201m'
+        COLOR_BOLD=$'\033[1;15m'
+        ;;
+    esac
+  else
+    unset COLOR_NONE COLOR_INFO COLOR_WARN COLOR_FAIL
+    unset COLOR_DATE COLOR_USER COLOR_BOLD
+  fi
+}
+
+term::init
+#! /bin/bash
 # mod: tmp
 # api: blib
 # txt: The `tmp` module provides functions to create and destroy temporary
@@ -597,47 +638,6 @@ tmp::file () {
 tmp::touch () {
   mkdir -p "${BLIB_TMPDIR}" && : > "${BLIB_TMPDIR}/$1"
 }
-#! /bin/bash
-# mod: term
-# api: blib
-# txt: The `term` module provides functions related with terminal
-#      configuration. This module also define some useful color variables to
-#      be used in `out` module.
-
-# fun: term::attached
-# api: blib
-# txt: return true if output is a terminal, false otherwise
-term::attached () { [ -t 1 ] && ! ${BLIB_DISABLE_COLORS:-false}; }
-
-# fun: term::tcap <capability>
-# api: blib
-# txt: check if some capabilty is enabled in terminal
-term::tcap () { tput "$1" 2>/dev/null; }
-
-# fun: term::init
-# api: blib
-# txt: initialize terminal, in theory you never need to call this function,
-#      unless you want to change your terminal online.
-term::init () {
-  if term::attached; then
-    case "$(term::tcap colors)" in
-      256)
-        COLOR_NONE=$'\033[0;0;0m'
-        COLOR_INFO=$'\033[38;5;79m'
-        COLOR_WARN=$'\033[38;5;190m'
-        COLOR_FAIL=$'\033[38;5;160m'
-        COLOR_DATE=$'\033[38;5;242m'
-        COLOR_USER=$'\033[38;5;201m'
-        COLOR_BOLD=$'\033[1;15m'
-        ;;
-    esac
-  else
-    unset COLOR_NONE COLOR_INFO COLOR_WARN COLOR_FAIL
-    unset COLOR_DATE COLOR_USER COLOR_BOLD
-  fi
-}
-
-term::init
 #! /bin/bash
 # mod: version
 # api: blib
@@ -715,13 +715,14 @@ out::warn () { out::log "$1" "${COLOR_WARN}warn${COLOR_NONE}" >&4; }
 # env: COLOR_USER: defines the color to be used in this kind of messages.
 out::user () { out::log "$1" "${COLOR_USER}user${COLOR_NONE}"; }
 
-# This code catch all messages in stderr and prefixed with out::fail,
+# This code catches all messages in stderr and prefixes them with out::fail,
 # cloning &2 to &4 and redirecting all &2 messages to &4
 
 if ${DEBUG:-false}; then
   exec 4>&2
 else
   exec 4>&2
+  unset err_handler
   coproc err_handler ( read -r line; out::fail "$line";)
   export OUT__STDERR__PID="$!"
   eval "exec 2>&${err_handler[1]}"
@@ -762,7 +763,6 @@ std::add_quit_handler () {
   std__quit_handler["$1"]="$2"
 }
 trap std::quit EXIT
-trap std::quit CHLD
 
 # fun: std::hmac <text>
 # api: blib
@@ -930,4 +930,4 @@ std::str2array () {
   str2array_ret=( "$@" )
 }
 declare -xa str2array_ret
-BLIB_VERSION='1.2'
+BLIB_VERSION='1.2-5-g84801fd'
