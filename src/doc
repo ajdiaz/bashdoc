@@ -62,9 +62,9 @@ DOC_CSS='
     pre.sourceCode {
       border-radius: 0;
       border: 0;
-      background: none;
-      padding-top:10px;
-      width: 100%;
+      background: #ededed;
+      padding:10px 5px 10px 5px;
+      width: auto;
       font-size: 90%;
     }
 
@@ -111,6 +111,7 @@ DOC_CSS='
   }
   .module dt {
     display: inline-block;
+    float: left;
     min-width: 125px;
     font-weight: bold;
     color: #333;
@@ -123,8 +124,7 @@ DOC_CSS='
     content: ":";
   }
   .module dd {
-    display: inline;
-    margin: 0;
+    margin: 0 0 0 125px;
   }
   .module h3 code {
     font-size: 80%;
@@ -382,8 +382,10 @@ doc::output ()
   done
   for doc in "$@"; do
     local docname="${doc#./}"
-    echo "# API Reference (${docname%.*})" && echo
-    doc::read_blocks "$API" < "$doc"
+    for api in ${API//,/ }; do
+      echo "# $api API Reference" && echo
+      doc::read_blocks "$api" < "$doc"
+    done
     echo -e "\n---\n"
   done
 }

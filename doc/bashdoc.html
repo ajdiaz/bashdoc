@@ -11,26 +11,27 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -39,9 +40,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; } /* Alert */
 code span.an { color: #008000; } /* Annotation */
@@ -90,12 +91,12 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
       line-height: 1.4;
       background: #3E4042;
       }
-  
+
       h1,h2,h3,h4,h5,h6 {
         font-family: "Work sans","Helvetica Neue", Helvetica, Arial, sans-serif;
         font-weight: 500;
       }
-  
+
       #toc ul { padding:0; margin:0; }
       #toc > ul > li { margin-bottom: 2em; }
       #toc li { list-style: none; padding-left:0; }
@@ -113,7 +114,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
         margin:0 0 0 25%;
         background: #fff;
       }
-  
+
       .section pre {
         border-radius: 10px;
         border:1px solid #dadada;
@@ -123,37 +124,37 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
         font-family: monospace;
         font-size:120%
       }
-  
+
       pre.sourceCode {
         border-radius: 0;
         border: 0;
-        background: none;
-        padding-top:10px;
-        width: 100%;
+        background: #ededed;
+        padding:10px 5px 10px 5px;
+        width: auto;
         font-size: 90%;
       }
-  
+
       .module .section {
         padding-left: 2em;
       }
-  
+
       .module .section p::first-letter {
         text-transform: capitalize;
       }
-  
+
       .module h4 { margin-bottom:0 !important; }
-  
+
       p { 
         width: 80%;
         text-align: justify;
       }
-  
+
       .module p {
         padding-left: 1em;
         color: #555;
         font-style: italic;
       }
-  
+
     .module h2 { margin-bottom:0.2em; margin-top: 2.5em;}
     .module h2:before {
        content: "module";
@@ -162,7 +163,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
        font-size: 90%;
        padding-right:0.4em;
     }
-  
+
     .module h3:before {
        content: "function";
        color: #888;
@@ -170,12 +171,13 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
        font-size: 90%;
        padding-right:0.4em;
     }
-  
+
     .module dl {
       padding: 0.5em;
     }
     .module dt {
       display: inline-block;
+      float: left;
       min-width: 125px;
       font-weight: bold;
       color: #333;
@@ -188,22 +190,21 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
       content: ":";
     }
     .module dd {
-      display: inline;
-      margin: 0;
+      margin: 0 0 0 125px;
     }
     .module h3 code {
       font-size: 80%;
       color: #555;
     }
-  
+
     hr { margin-top:2em; margin-bottom: 2em; border:1px solid #555;
     background: none; }
     div.sourceCode { width: 100% !important; }
     td.lineNumbers { padding-left:0 !important; }
     .sourceCode pre { margin-bottom:0 !important; }
     .sourceCode { margin-bottom: 0.5em !important; }
-  
-  
+
+
   h1 code,h2 code,h3 code,h4 code,.section p code, dl code {
     background: none !important;
     color: #555 !important;
@@ -212,14 +213,17 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <body class="book toc2 toc-left">
 <div id="toc" class="toc2">
 <ul>
-<li><a href="#bashdoc">bashdoc</a><ul>
+<li><a href="#bashdoc">bashdoc</a>
+<ul>
 <li><a href="#documentation-syntax">Documentation syntax</a></li>
 <li><a href="#examples">Examples</a></li>
 <li><a href="#using-api-name">Using API name</a></li>
 <li><a href="#using-custom-stylesheet">Using custom stylesheet</a></li>
 </ul></li>
-<li><a href="#api-reference-bashdoc">API Reference (bashdoc)</a><ul>
-<li><a href="#doc">doc</a><ul>
+<li><a href="#bashdoc-api-reference">bashdoc API Reference</a>
+<ul>
+<li><a href="#doc">doc</a>
+<ul>
 <li><a href="#docread_blocks-api">doc::read_blocks <code>[api]</code></a></li>
 <li><a href="#docoutput-file">doc::output <code>&lt;file&gt;+</code></a></li>
 <li><a href="#docgenerate-file">doc::generate <code>&lt;file&gt;+</code></a></li>
@@ -264,36 +268,36 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <section id="examples" class="level2">
 <h2>Examples</h2>
 <p>Let’s suppose the following content of the file <code>script.bash</code></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># mod: example</span></a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="co"># txt: this module is an example for documentation.</span></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="co">#      The txt sections as also opt and env ones can</span></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="co">#      be multiline if lines are kept vertical aligned.</span></a>
-<a class="sourceLine" id="cb1-5" title="5"></a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="co"># fun: sum num1 num2</span></a>
-<a class="sourceLine" id="cb1-7" title="7"><span class="co"># txt: sum two numbers and output the result</span></a>
-<a class="sourceLine" id="cb1-8" title="8"><span class="co"># opt: num1: the first number to sum</span></a>
-<a class="sourceLine" id="cb1-9" title="9"><span class="co"># opt: num2: the second number to sum</span></a>
-<a class="sourceLine" id="cb1-10" title="10"><span class="co"># use: sum 1 3</span></a>
-<a class="sourceLine" id="cb1-11" title="11"><span class="co"># api: sum</span></a>
-<a class="sourceLine" id="cb1-12" title="12"><span class="fu">sum ()</span></a>
-<a class="sourceLine" id="cb1-13" title="13"><span class="kw">{</span></a>
-<a class="sourceLine" id="cb1-14" title="14">  <span class="bu">echo</span> <span class="st">&quot;</span><span class="va">$(($1</span> + <span class="va">$2))</span><span class="st">&quot;</span></a>
-<a class="sourceLine" id="cb1-15" title="15"><span class="kw">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co"># mod: example</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="co"># txt: this module is an example for documentation.</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="co">#      The txt sections as also opt and env ones can</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="co">#      be multiline if lines are kept vertical aligned.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="co"># fun: sum num1 num2</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="co"># txt: sum two numbers and output the result</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="co"># opt: num1: the first number to sum</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a><span class="co"># opt: num2: the second number to sum</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a><span class="co"># use: sum 1 3</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="co"># api: sum</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a><span class="fu">sum ()</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a><span class="kw">{</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>  <span class="bu">echo</span> <span class="st">&quot;</span><span class="va">$(($1</span> + <span class="va">$2))</span><span class="st">&quot;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a><span class="kw">}</span></span></code></pre></div>
 <p>Now you can generate the HTML with the command:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1"><span class="ex">bashdoc</span> -o doc.html script.bash</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="ex">bashdoc</span> -o doc.html script.bash</span></code></pre></div>
 </section>
 <section id="using-api-name" class="level2">
 <h2>Using API name</h2>
 <p>Le’ts suppose the previous example code, and we need to add more functions there:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># fun: internal_sum num1</span></a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="co"># txt: return zero (yes, it&#39;s not very usefull function)</span></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="co"># api: internal</span></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="fu">internal_sum ()</span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="kw">{</span></a>
-<a class="sourceLine" id="cb3-6" title="6">  <span class="bu">echo</span> 0</a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="kw">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="co"># fun: internal_sum num1</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="co"># txt: return zero (yes, it&#39;s not very usefull function)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="co"># api: internal</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="fu">internal_sum ()</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="kw">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>  <span class="bu">echo</span> 0</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a><span class="kw">}</span></span></code></pre></div>
 <p>If we generate the HTML in the same way that we do previously, the result HTML will contain two documented functions: <code>sum</code> and <code>internal_sum</code>, but we don’t want the second one in the documentation. Of course we can remove the doc strings from there, but then we loose the documentation in the code too. To avoid this problem we can use the API name. If you look carefully, you can see that the api name in the first function is <code>sum</code>, and in the second one is <code>internal</code>. If we run bashdoc as following:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" title="1"><span class="ex">bashdoc</span> -a sum -o doc.html script.bash</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="ex">bashdoc</span> -a sum -o doc.html script.bash</span></code></pre></div>
 <p>We will create documentation only for functions tagged as API <em>sum</em>. Please note that if you force a specific API tag, then functions or modules without declared API will be not documented.</p>
 </section>
 <section id="using-custom-stylesheet" class="level2">
@@ -301,17 +305,17 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>By default bashdoc using its own CSS stylesheet and HTML template, which is pretty nice, by the way, but if you want to use your own style and/or HTML template, you can use it passing paramenters <code>-s</code> (for style) and <code>-t</code> (for template) to the bashdoc command.</p>
 <p>Accepted styleshet is any file which contains valid CSS code. Accepted template is any template accepted by pandoc.</p>
 <p>For example:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" title="1"><span class="ex">bashdoc</span> -s mystyle.css -t mytemplate.html -o doc.html script.bash</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="ex">bashdoc</span> -s mystyle.css -t mytemplate.html -o doc.html script.bash</span></code></pre></div>
 <hr />
 </section>
 </section>
-<section id="api-reference-bashdoc" class="level1">
-<h1>API Reference (bashdoc)</h1>
+<section id="bashdoc-api-reference" class="level1">
+<h1>bashdoc API Reference</h1>
 <section id="doc" class="level2 module">
-<h2>doc</h2>
+<h2 class="module">doc</h2>
 <p>The <code>doc</code> module provides functions to convert bash source code to HTML, using markdown and specific CSS themes.</p>
 <section id="docread_blocks-api" class="level3 function">
-<h3>doc::read_blocks <code>[api]</code></h3>
+<h3 class="function">doc::read_blocks <code>[api]</code></h3>
 <p>read and print blocks readed from stdin which match with specific api definition. If api is not provided all elements will be documentated, if api is provided, only elements with declared api matched with provided one will be documented. If api is provided, but is not declared in documentation, then item will be documentated too.</p>
 <section id="parameters" class="level4">
 <h4>Parameters</h4>
@@ -331,11 +335,11 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="usage-example" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" title="1"><span class="ex">doc</span>::read_blocks v1 <span class="op">&lt;</span> script</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="ex">doc</span>::read_blocks v1 <span class="op">&lt;</span> script</span></code></pre></div>
 </section>
 </section>
 <section id="docoutput-file" class="level3 function">
-<h3>doc::output <code>&lt;file&gt;+</code></h3>
+<h3 class="function">doc::output <code>&lt;file&gt;+</code></h3>
 <p>Create intermediate markdown code required to produce final HTML.</p>
 <section id="environment-variables-1" class="level4">
 <h4>Environment variables</h4>
@@ -353,11 +357,11 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="usage-example-1" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" title="1"><span class="ex">doc</span>::output file</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="ex">doc</span>::output file</span></code></pre></div>
 </section>
 </section>
 <section id="docgenerate-file" class="level3 function">
-<h3>doc::generate <code>&lt;file&gt;+</code></h3>
+<h3 class="function">doc::generate <code>&lt;file&gt;+</code></h3>
 <p>generate HTML for the specified files passed as arguments.</p>
 <section id="environment-variables-2" class="level4">
 <h4>Environment variables</h4>
@@ -369,7 +373,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="usage-example-2" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" title="1"><span class="ex">doc</span>::generate file</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="ex">doc</span>::generate file</span></code></pre></div>
 <hr />
 </section>
 </section>
@@ -377,4 +381,3 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 </div>
 </body>
-

@@ -2,7 +2,7 @@
 # mod: main
 # txt: The ``main`` module contain the specified potion body.
 
-VERSION="2.0.0"
+readonly VERSION="2.0.1"
 
 # fun: main::init
 # txt: print nice potion logo and some custom messages at the beginning.
@@ -49,7 +49,7 @@ main () {
   arg::opt MAIN -o --output  main::opt_output  'set the output file name'
   arg::opt MAIN -d --include-date  main::opt_date   'add date to the document'
   arg::opt MAIN -f --file    main::opt_file         'add more section files'
-  arg::opt MAIN -a --api     main::opt_api          'set api to be documented'
+  arg::opt MAIN -A --api     main::opt_api          'set api to be documented'
   arg::opt MAIN -s --style   main::opt_style        'path to CSS stylesheet'
   arg::opt MAIN -t --template  main::opt_template   'path to HTML template'
   arg::opt MAIN -H --highlight-theme  main::opt_highlight \

@@ -29,7 +29,7 @@ test: all
 	 rm -f test.html
 
 doc: all
-	$(OUTBIN) -T bashdoc -a bashdoc -f README.md -o doc/bashdoc.html bashdoc
+	$(OUTBIN) -T bashdoc -A bashdoc -f README.md -o doc/bashdoc.html bashdoc
 
 clean:
 	rm -f $(OUTBIN) test.html
