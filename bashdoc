@@ -932,6 +932,71 @@ std::str2array () {
 declare -xa str2array_ret
 BLIB_VERSION='1.2-5-g84801fd'
 #! /bin/bash
+# mod: main
+# txt: The ``main`` module contain the specified potion body.
+
+readonly VERSION="2.0.1"
+
+# fun: main::init
+# txt: print nice potion logo and some custom messages at the beginning.
+main::init () {
+
+out::user "    ${COLOR_WARN},   ,${COLOR_NONE}"
+out::user "   ${COLOR_WARN}/////|${COLOR_NONE}"
+out::user "  ${COLOR_WARN}///// |${COLOR_NONE} ${COLOR_INFO} _               _         _            ${COLOR_NONE}"
+out::user " ${COLOR_WARN}|~~~|  |${COLOR_NONE} ${COLOR_INFO}| |__   __ _ ___| |__   __| | ___   ___ ${COLOR_NONE}"
+out::user " ${COLOR_WARN}|===|  |${COLOR_NONE} ${COLOR_INFO}| '_ \\ / _\` / __| '_ \\ / _\` |/ _ \\ / __|${COLOR_NONE}"
+out::user " ${COLOR_WARN}|   |  |${COLOR_NONE} ${COLOR_INFO}| |_) | (_| \\__ \\ | | | (_| | (_) | (__ ${COLOR_NONE}"
+out::user " ${COLOR_WARN}|   |  |${COLOR_NONE} ${COLOR_INFO}|_.__/ \\__,_|___/_| |_|\\__,_|\\___/ \\___|${COLOR_NONE}"
+out::user " ${COLOR_WARN}|   | /${COLOR_NONE}  ${COLOR_USER}version ${VERSION}${COLOR_NONE}"
+out::user " ${COLOR_WARN}|===|/${COLOR_NONE}"
+out::user " ${COLOR_WARN}'---'${COLOR_NONE}"
+                                        
+
+                                        
+}
+
+opt_files=""
+# general options handlers
+main::opt_version () { out::info "Bashdoc $VERSION"; exit 0;}
+main::opt_title () { TITLE="$1"; return 2; }
+main::opt_author () { AUTHOR="$1"; return 2; }
+main::opt_output () { OUTPUT="$1"; return 2; }
+main::opt_date () { DATE="$(date +%Y-%m-%d)"; return 1; }
+main::opt_file () { opt_files="$opt_files $1"; return 2; }
+main::opt_api () { API="$1"; return 2; }
+main::opt_style () { __opt__style="$1"; echo "$@" ; return 2; }
+main::opt_template () { __opt__template="$1"; return 2; }
+main::opt_highlight () { __opt__highlight="$1"; return 2; }
+
+# main function really
+main::action () {
+  main::init
+  doc::generate "$@"
+}
+
+main () {
+  arg::opt MAIN -V --version main::opt_version 'show program version number'
+  arg::opt MAIN -T --title   main::opt_title   'set the title of the document'
+  arg::opt MAIN -a --author  main::opt_author  'set the author of the document'
+  arg::opt MAIN -o --output  main::opt_output  'set the output file name'
+  arg::opt MAIN -d --include-date  main::opt_date   'add date to the document'
+  arg::opt MAIN -f --file    main::opt_file         'add more section files'
+  arg::opt MAIN -A --api     main::opt_api          'set api to be documented'
+  arg::opt MAIN -s --style   main::opt_style        'path to CSS stylesheet'
+  arg::opt MAIN -t --template  main::opt_template   'path to HTML template'
+  arg::opt MAIN -H --highlight-theme  main::opt_highlight \
+    'theme name to highlight code'
+
+  arg::main::help "Generate documentation for bash programs"
+  arg::main::action main::action
+
+  arg::param MAIN "script+" \
+    'Path or URL to script to create documentation'
+
+  arg::parse "$@"
+}
+#! /bin/bash
 # mod: doc
 # api: bashdoc
 # txt: The `doc` module provides functions to convert bash source code to
@@ -1022,13 +1087,21 @@ DOC_CSS='
       font-style: italic;
     }
 
-  .module h2 { margin-bottom:0.2em; margin-top: 2.5em;}
+  .module h2 {
+    border-bottom:1px solid #444;
+    margin:2em 0 1em 0;
+  }
   .module h2:before {
      content: "module";
-     color: #888;
+     color: #444;
      font-family: monospace;
      font-size: 90%;
      padding-right:0.4em;
+  }
+
+  .module h3 {
+    border-bottom:1px solid #dadada;
+    margin:2em 0 1em 0;
   }
 
   .module h3:before {
@@ -1160,7 +1233,7 @@ DOCSTRING="${DOCSTRING:-# }"
 # use: doc::read_blocks v1 < script
 doc::read_blocks ()
 {
-  local block_name=MAIN func_name= key=
+  local block_name=MAIN func_name
   local in_opt=false in_env=false in_use=false in_pre=false indent=''
   __doc__apis=()
   __doc__mods=()
@@ -1177,7 +1250,7 @@ doc::read_blocks ()
   _reset_env () { in_env=false; }
   _reset_use () { in_use=false; }
 
-  while read line; do
+  while read -r line; do
     # some minor replacements required for markdown parser
     line="${line//</\<}"
     line="${line//>/\>}"
@@ -1276,6 +1349,7 @@ doc::read_blocks ()
 
   _reset_pre
 
+  declare -a sort_ret=()
   std::sort "${!__doc__mods[@]}"
 
   for x in "${sort_ret[@]}"; do
@@ -1315,10 +1389,16 @@ doc::output ()
   done
   for doc in "$@"; do
     local docname="${doc#./}"
-    for api in ${API//,/ }; do
-      echo "# $api API Reference" && echo
-      doc::read_blocks "$api" < "$doc"
-    done
+
+    if [[ "$API" ]]; then
+      for api in ${API//,/ }; do
+        echo "# $api API Reference" && echo
+        doc::read_blocks "$api" < "$doc"
+      done
+    else
+      echo "# API Reference" && echo
+      doc::read_blocks "" < "$doc"
+    fi
     echo -e "\n---\n"
   done
 }
@@ -1354,71 +1434,6 @@ doc::generate ()
     -H <(echo "<style>$DOC_CSS</style>") \
     <(echo "$(doc::output "$@")") \
     $output
-}
-#! /bin/bash
-# mod: main
-# txt: The ``main`` module contain the specified potion body.
-
-readonly VERSION="2.0.1"
-
-# fun: main::init
-# txt: print nice potion logo and some custom messages at the beginning.
-main::init () {
-
-out::user "    ${COLOR_WARN},   ,${COLOR_NONE}"
-out::user "   ${COLOR_WARN}/////|${COLOR_NONE}"
-out::user "  ${COLOR_WARN}///// |${COLOR_NONE} ${COLOR_INFO} _               _         _            ${COLOR_NONE}"
-out::user " ${COLOR_WARN}|~~~|  |${COLOR_NONE} ${COLOR_INFO}| |__   __ _ ___| |__   __| | ___   ___ ${COLOR_NONE}"
-out::user " ${COLOR_WARN}|===|  |${COLOR_NONE} ${COLOR_INFO}| '_ \\ / _\` / __| '_ \\ / _\` |/ _ \\ / __|${COLOR_NONE}"
-out::user " ${COLOR_WARN}|   |  |${COLOR_NONE} ${COLOR_INFO}| |_) | (_| \\__ \\ | | | (_| | (_) | (__ ${COLOR_NONE}"
-out::user " ${COLOR_WARN}|   |  |${COLOR_NONE} ${COLOR_INFO}|_.__/ \\__,_|___/_| |_|\\__,_|\\___/ \\___|${COLOR_NONE}"
-out::user " ${COLOR_WARN}|   | /${COLOR_NONE}  ${COLOR_USER}version ${VERSION}${COLOR_NONE}"
-out::user " ${COLOR_WARN}|===|/${COLOR_NONE}"
-out::user " ${COLOR_WARN}'---'${COLOR_NONE}"
-                                        
-
-                                        
-}
-
-opt_files=""
-# general options handlers
-main::opt_version () { out::info "Bashdoc $VERSION"; exit 0;}
-main::opt_title () { TITLE="$1"; return 2; }
-main::opt_author () { AUTHOR="$1"; return 2; }
-main::opt_output () { OUTPUT="$1"; return 2; }
-main::opt_date () { DATE="$(date +%Y-%m-%d)"; return 1; }
-main::opt_file () { opt_files="$opt_files $1"; return 2; }
-main::opt_api () { API="$1"; return 2; }
-main::opt_style () { __opt__style="$1"; echo "$@" ; return 2; }
-main::opt_template () { __opt__template="$1"; return 2; }
-main::opt_highlight () { __opt__highlight="$1"; return 2; }
-
-# main function really
-main::action () {
-  main::init
-  doc::generate "$@"
-}
-
-main () {
-  arg::opt MAIN -V --version main::opt_version 'show program version number'
-  arg::opt MAIN -T --title   main::opt_title   'set the title of the document'
-  arg::opt MAIN -a --author  main::opt_author  'set the author of the document'
-  arg::opt MAIN -o --output  main::opt_output  'set the output file name'
-  arg::opt MAIN -d --include-date  main::opt_date   'add date to the document'
-  arg::opt MAIN -f --file    main::opt_file         'add more section files'
-  arg::opt MAIN -A --api     main::opt_api          'set api to be documented'
-  arg::opt MAIN -s --style   main::opt_style        'path to CSS stylesheet'
-  arg::opt MAIN -t --template  main::opt_template   'path to HTML template'
-  arg::opt MAIN -H --highlight-theme  main::opt_highlight \
-    'theme name to highlight code'
-
-  arg::main::help "Generate documentation for bash programs"
-  arg::main::action main::action
-
-  arg::param MAIN "script+" \
-    'Path or URL to script to create documentation'
-
-  arg::parse "$@"
 }
 std::installed 'pandoc' ||  err::trace 'pandoc is required but not found'
 main "$@"

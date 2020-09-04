@@ -89,13 +89,21 @@ DOC_CSS='
       font-style: italic;
     }
 
-  .module h2 { margin-bottom:0.2em; margin-top: 2.5em;}
+  .module h2 {
+    border-bottom:1px solid #444;
+    margin:2em 0 1em 0;
+  }
   .module h2:before {
      content: "module";
-     color: #888;
+     color: #444;
      font-family: monospace;
      font-size: 90%;
      padding-right:0.4em;
+  }
+
+  .module h3 {
+    border-bottom:1px solid #dadada;
+    margin:2em 0 1em 0;
   }
 
   .module h3:before {
@@ -227,7 +235,7 @@ DOCSTRING="${DOCSTRING:-# }"
 # use: doc::read_blocks v1 < script
 doc::read_blocks ()
 {
-  local block_name=MAIN func_name= key=
+  local block_name=MAIN func_name
   local in_opt=false in_env=false in_use=false in_pre=false indent=''
   __doc__apis=()
   __doc__mods=()
@@ -244,7 +252,7 @@ doc::read_blocks ()
   _reset_env () { in_env=false; }
   _reset_use () { in_use=false; }
 
-  while read line; do
+  while read -r line; do
     # some minor replacements required for markdown parser
     line="${line//</\<}"
     line="${line//>/\>}"
@@ -343,6 +351,7 @@ doc::read_blocks ()
 
   _reset_pre
 
+  declare -a sort_ret=()
   std::sort "${!__doc__mods[@]}"
 
   for x in "${sort_ret[@]}"; do
@@ -382,10 +391,16 @@ doc::output ()
   done
   for doc in "$@"; do
     local docname="${doc#./}"
-    for api in ${API//,/ }; do
-      echo "# $api API Reference" && echo
-      doc::read_blocks "$api" < "$doc"
-    done
+
+    if [[ "$API" ]]; then
+      for api in ${API//,/ }; do
+        echo "# $api API Reference" && echo
+        doc::read_blocks "$api" < "$doc"
+      done
+    else
+      echo "# API Reference" && echo
+      doc::read_blocks "" < "$doc"
+    fi
     echo -e "\n---\n"
   done
 }

@@ -155,13 +155,21 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
         font-style: italic;
       }
 
-    .module h2 { margin-bottom:0.2em; margin-top: 2.5em;}
+    .module h2 {
+      border-bottom:1px solid #444;
+      margin:2em 0 1em 0;
+    }
     .module h2:before {
        content: "module";
-       color: #888;
+       color: #444;
        font-family: monospace;
        font-size: 90%;
        padding-right:0.4em;
+    }
+
+    .module h3 {
+      border-bottom:1px solid #dadada;
+      margin:2em 0 1em 0;
     }
 
     .module h3:before {
@@ -297,7 +305,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>  <span class="bu">echo</span> 0</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a><span class="kw">}</span></span></code></pre></div>
 <p>If we generate the HTML in the same way that we do previously, the result HTML will contain two documented functions: <code>sum</code> and <code>internal_sum</code>, but we don’t want the second one in the documentation. Of course we can remove the doc strings from there, but then we loose the documentation in the code too. To avoid this problem we can use the API name. If you look carefully, you can see that the api name in the first function is <code>sum</code>, and in the second one is <code>internal</code>. If we run bashdoc as following:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="ex">bashdoc</span> -a sum -o doc.html script.bash</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="ex">bashdoc</span> -A sum -o doc.html script.bash</span></code></pre></div>
 <p>We will create documentation only for functions tagged as API <em>sum</em>. Please note that if you force a specific API tag, then functions or modules without declared API will be not documented.</p>
 </section>
 <section id="using-custom-stylesheet" class="level2">

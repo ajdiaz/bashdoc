@@ -83,7 +83,7 @@ you can see that the api name in the first function is `sum`, and in the
 second one is `internal`. If we run bashdoc as following:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.bash}
-bashdoc -a sum -o doc.html script.bash
+bashdoc -A sum -o doc.html script.bash
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We will create documentation only for functions tagged as API *sum*. Please

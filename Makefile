@@ -19,14 +19,14 @@ all:
 	@ls -l $(OUTBIN)
 
 test: all
-	 $(OUTBIN) -a bashdoc -f README.md -o test.html bashdoc
+	 $(OUTBIN) -T test -f README.md -o test.html bashdoc
 	 @if diff -Naurr test.html test/test.html; then \
 	    echo "Test OK"; \
 	 else \
 	    echo "Test KO"; \
 	    exit 1; \
 	 fi;
-	 rm -f test.html
+	 @rm -f test.html
 
 doc: all
 	$(OUTBIN) -T bashdoc -A bashdoc -f README.md -o doc/bashdoc.html bashdoc
