@@ -396,29 +396,6 @@ curl::source () {
 
 ${DEBUG:+set -x}
 #! /bin/bash
-# mod: err
-# api: blib
-# txt: The `err` module offers a way to stop potion execution with
-#      a traceback.
-
-# fun: err::trace
-# api: blib
-# txt: print to stderr a traceback of an error.
-# use: false || err::trace "Error because of false"
-err::trace () {
-  echo "${COLOR_FAIL}Traceback (most recent call last):${COLOR_NONE}" >&4
-  for ((i=0;; i++)); do
-    read -r line fun file < <(caller $i)
-    if [ "$line" ]; then
-      echo "${COLOR_FAIL} File '$file', line $line, in $fun${COLOR_NONE}" >&4
-    else
-      break
-    fi
-  done
-  out::fail "$1"
-  exit 127
-}
-#! /bin/bash
 # mod: mutex
 # api: blib
 # txt: The `mutex` module provides a way to ensure critical region access
@@ -733,6 +710,29 @@ out::_close_fd ()
   kill "${OUT__STDERR__PID}"
 }
 #! /bin/bash
+# mod: err
+# api: blib
+# txt: The `err` module offers a way to stop potion execution with
+#      a traceback.
+
+# fun: err::trace
+# api: blib
+# txt: print to stderr a traceback of an error.
+# use: false || err::trace "Error because of false"
+err::trace () {
+  echo "${COLOR_FAIL}Traceback (most recent call last):${COLOR_NONE}" >&4
+  for ((i=0;; i++)); do
+    read -r line fun file < <(caller "$i")
+    if [ "$line" ]; then
+      echo "${COLOR_FAIL} File '$file', line $line, in $fun${COLOR_NONE}" >&4
+    else
+      break
+    fi
+  done
+  out::fail "$1"
+  exit 127
+}
+#! /bin/bash
 # mod: std
 # api: blib
 # txt: The `std` module contains a numer of standard functions usefull to
@@ -798,12 +798,12 @@ std::mute () {
 
 # fun: std::strin <str1> <str2>
 # api: blib
-# txt: return true if `str1` is into `str2`, or false otherwise.
+# txt: return true if `str2` is into `str1`, or false otherwise.
 # opt: str1: the string which could be contain `str2` and wants to evaluate
 # opt: str2: the string to find into `str1`
 # use: std::strin "somelargestring" "some"
 std::strin () {
-  [ "${1//$2/}" != "${1}" ]
+  [[ "${1//$2/}" != "${1}" ]]
 }
 
 # fun: std::sleep <seconds>
@@ -843,23 +843,29 @@ std::timestamp () {
 # api: blib
 # txt: parse an argument string in the form key=value and promote this
 #      variables to environment. The key `name` is mandatory. If the
-#      first parameter has no key, key `name` is using by default.
-# use: std::parse "name=Jhon age=90"
+#      first parameter has no key, key `name` is using by default. The
+#      `name` parameter must be the first one.
+# use: std::parse "name=Jhon" "age=90"
 #      echo "$name has $age years old"
 std::parse () {
-  local hasname=false
-  local fst="$1"; shift
+  local key val
+  export name
+  name="${1#name=}"; shift
 
-  [ "${fst#name=}" != "${fst}" ] || fst="name=$fst"
+  for arg in "$@"; do
+    if std::strin "$arg" "="; then
+      IFS='=' read -d $'\0' -r key val <<< "$arg"
 
-  for arg in "$fst" "$@"; do
-    std::strin "$arg" "=" || err::trace "Invalid argument: $arg"
-    [ "${arg#name=}" != "${arg}" ] && hasname=true
-    echo -n "local ${arg/=/=\'}';"
+      val="${val%$'\n'}" # XXX dirty hack to avoid problems with last \n
+                         # and one line text.
+
+      [[ "${key/=/}" ]] || err::trace "Invalid argument: $arg"
+      if ! std::mute declare -p "$key"; then
+        err::trace "Variable '$key' is undefined (required to parse '$arg')"
+      fi
+      export "$key"="$val"
+    fi
   done
-  ${hasname} || err::trace "The parameter 'name' is mandatory"
-  shift
-  echo
 }
 
 # fun: std::run <command>
@@ -881,7 +887,7 @@ std::installed () {
 # api: blib
 # txt: return true if dir is empty
 std::is_dir_empty () {
-  for f in $1/*; do
+  for f in "$1"/*; do
     [ "$f" == "$1/*" ] && return 0
     return 1
   done
@@ -930,72 +936,7 @@ std::str2array () {
   str2array_ret=( "$@" )
 }
 declare -xa str2array_ret
-BLIB_VERSION='1.2-5-g84801fd'
-#! /bin/bash
-# mod: main
-# txt: The ``main`` module contain the specified potion body.
-
-readonly VERSION="2.0.1"
-
-# fun: main::init
-# txt: print nice potion logo and some custom messages at the beginning.
-main::init () {
-
-out::user "    ${COLOR_WARN},   ,${COLOR_NONE}"
-out::user "   ${COLOR_WARN}/////|${COLOR_NONE}"
-out::user "  ${COLOR_WARN}///// |${COLOR_NONE} ${COLOR_INFO} _               _         _            ${COLOR_NONE}"
-out::user " ${COLOR_WARN}|~~~|  |${COLOR_NONE} ${COLOR_INFO}| |__   __ _ ___| |__   __| | ___   ___ ${COLOR_NONE}"
-out::user " ${COLOR_WARN}|===|  |${COLOR_NONE} ${COLOR_INFO}| '_ \\ / _\` / __| '_ \\ / _\` |/ _ \\ / __|${COLOR_NONE}"
-out::user " ${COLOR_WARN}|   |  |${COLOR_NONE} ${COLOR_INFO}| |_) | (_| \\__ \\ | | | (_| | (_) | (__ ${COLOR_NONE}"
-out::user " ${COLOR_WARN}|   |  |${COLOR_NONE} ${COLOR_INFO}|_.__/ \\__,_|___/_| |_|\\__,_|\\___/ \\___|${COLOR_NONE}"
-out::user " ${COLOR_WARN}|   | /${COLOR_NONE}  ${COLOR_USER}version ${VERSION}${COLOR_NONE}"
-out::user " ${COLOR_WARN}|===|/${COLOR_NONE}"
-out::user " ${COLOR_WARN}'---'${COLOR_NONE}"
-                                        
-
-                                        
-}
-
-opt_files=""
-# general options handlers
-main::opt_version () { out::info "Bashdoc $VERSION"; exit 0;}
-main::opt_title () { TITLE="$1"; return 2; }
-main::opt_author () { AUTHOR="$1"; return 2; }
-main::opt_output () { OUTPUT="$1"; return 2; }
-main::opt_date () { DATE="$(date +%Y-%m-%d)"; return 1; }
-main::opt_file () { opt_files="$opt_files $1"; return 2; }
-main::opt_api () { API="$1"; return 2; }
-main::opt_style () { __opt__style="$1"; echo "$@" ; return 2; }
-main::opt_template () { __opt__template="$1"; return 2; }
-main::opt_highlight () { __opt__highlight="$1"; return 2; }
-
-# main function really
-main::action () {
-  main::init
-  doc::generate "$@"
-}
-
-main () {
-  arg::opt MAIN -V --version main::opt_version 'show program version number'
-  arg::opt MAIN -T --title   main::opt_title   'set the title of the document'
-  arg::opt MAIN -a --author  main::opt_author  'set the author of the document'
-  arg::opt MAIN -o --output  main::opt_output  'set the output file name'
-  arg::opt MAIN -d --include-date  main::opt_date   'add date to the document'
-  arg::opt MAIN -f --file    main::opt_file         'add more section files'
-  arg::opt MAIN -A --api     main::opt_api          'set api to be documented'
-  arg::opt MAIN -s --style   main::opt_style        'path to CSS stylesheet'
-  arg::opt MAIN -t --template  main::opt_template   'path to HTML template'
-  arg::opt MAIN -H --highlight-theme  main::opt_highlight \
-    'theme name to highlight code'
-
-  arg::main::help "Generate documentation for bash programs"
-  arg::main::action main::action
-
-  arg::param MAIN "script+" \
-    'Path or URL to script to create documentation'
-
-  arg::parse "$@"
-}
+BLIB_VERSION='2.0'
 #! /bin/bash
 # mod: doc
 # api: bashdoc
@@ -1434,6 +1375,71 @@ doc::generate ()
     -H <(echo "<style>$DOC_CSS</style>") \
     <(echo "$(doc::output "$@")") \
     $output
+}
+#! /bin/bash
+# mod: main
+# txt: The ``main`` module contain the specified potion body.
+
+readonly VERSION="2.0.2"
+
+# fun: main::init
+# txt: print nice potion logo and some custom messages at the beginning.
+main::init () {
+
+out::user "    ${COLOR_WARN},   ,${COLOR_NONE}"
+out::user "   ${COLOR_WARN}/////|${COLOR_NONE}"
+out::user "  ${COLOR_WARN}///// |${COLOR_NONE} ${COLOR_INFO} _               _         _            ${COLOR_NONE}"
+out::user " ${COLOR_WARN}|~~~|  |${COLOR_NONE} ${COLOR_INFO}| |__   __ _ ___| |__   __| | ___   ___ ${COLOR_NONE}"
+out::user " ${COLOR_WARN}|===|  |${COLOR_NONE} ${COLOR_INFO}| '_ \\ / _\` / __| '_ \\ / _\` |/ _ \\ / __|${COLOR_NONE}"
+out::user " ${COLOR_WARN}|   |  |${COLOR_NONE} ${COLOR_INFO}| |_) | (_| \\__ \\ | | | (_| | (_) | (__ ${COLOR_NONE}"
+out::user " ${COLOR_WARN}|   |  |${COLOR_NONE} ${COLOR_INFO}|_.__/ \\__,_|___/_| |_|\\__,_|\\___/ \\___|${COLOR_NONE}"
+out::user " ${COLOR_WARN}|   | /${COLOR_NONE}  ${COLOR_USER}version ${VERSION}${COLOR_NONE}"
+out::user " ${COLOR_WARN}|===|/${COLOR_NONE}"
+out::user " ${COLOR_WARN}'---'${COLOR_NONE}"
+                                        
+
+                                        
+}
+
+opt_files=""
+# general options handlers
+main::opt_version () { out::info "Bashdoc $VERSION"; exit 0;}
+main::opt_title () { TITLE="$1"; return 2; }
+main::opt_author () { AUTHOR="$1"; return 2; }
+main::opt_output () { OUTPUT="$1"; return 2; }
+main::opt_date () { DATE="$(date +%Y-%m-%d)"; return 1; }
+main::opt_file () { opt_files="$opt_files $1"; return 2; }
+main::opt_api () { API="$1"; return 2; }
+main::opt_style () { __opt__style="$1"; echo "$@" ; return 2; }
+main::opt_template () { __opt__template="$1"; return 2; }
+main::opt_highlight () { __opt__highlight="$1"; return 2; }
+
+# main function really
+main::action () {
+  main::init
+  doc::generate "$@"
+}
+
+main () {
+  arg::opt MAIN -V --version main::opt_version 'show program version number'
+  arg::opt MAIN -T --title   main::opt_title   'set the title of the document'
+  arg::opt MAIN -a --author  main::opt_author  'set the author of the document'
+  arg::opt MAIN -o --output  main::opt_output  'set the output file name'
+  arg::opt MAIN -d --include-date  main::opt_date   'add date to the document'
+  arg::opt MAIN -f --file    main::opt_file         'add more section files'
+  arg::opt MAIN -A --api     main::opt_api          'set api to be documented'
+  arg::opt MAIN -s --style   main::opt_style        'path to CSS stylesheet'
+  arg::opt MAIN -t --template  main::opt_template   'path to HTML template'
+  arg::opt MAIN -H --highlight-theme  main::opt_highlight \
+    'theme name to highlight code'
+
+  arg::main::help "Generate documentation for bash programs"
+  arg::main::action main::action
+
+  arg::param MAIN "script+" \
+    'Path or URL to script to create documentation'
+
+  arg::parse "$@"
 }
 std::installed 'pandoc' ||  err::trace 'pandoc is required but not found'
 main "$@"

@@ -9,7 +9,8 @@ REQUIREMENTS=./requirements.txt
 
 
 all:
-	find $(SRCDIR) -type f -exec cat {} \; > $(OUTBIN)
+	cat $(SRCDIR)/blib > $(OUTBIN)
+	find $(SRCDIR) ! -name "blib" -type f -exec cat {} \; >> $(OUTBIN)
 	@while read line; do \
 		echo "std::installed '$$line' || " \
 			   "err::trace '$$line is required but not found'" >> $(OUTBIN); \
