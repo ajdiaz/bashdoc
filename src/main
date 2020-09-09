@@ -2,7 +2,7 @@
 # mod: main
 # txt: The ``main`` module contain the specified potion body.
 
-readonly VERSION="2.0.2"
+readonly VERSION="2.0.3"
 
 # fun: main::init
 # txt: print nice potion logo and some custom messages at the beginning.
