@@ -2,6 +2,8 @@ image: archlinux
 sources:
   - https://git.sr.ht/~ajdiaz/bashdoc
   - https://git.sr.ht/~ajdiaz/blib
+packages:
+  - pandoc
 tasks:
   - build: |
       make -C blib
