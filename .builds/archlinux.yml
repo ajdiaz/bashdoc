@@ -1,0 +1,8 @@
+image: archlinux
+sources:
+  - https://git.sr.ht/~ajdiaz/bashdoc
+tasks:
+  - build: |
+      make -C bashdoc
+  - test: |
+      make -C bashdoc test
