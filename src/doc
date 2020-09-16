@@ -428,12 +428,12 @@ doc::generate ()
   out::info "Highlight syntax: ${__opt__highlight:-haddock}"
   out::info "Generating HTML into ${OUTPUT:-stdout}"
 
-  echo "$DOC_TEMPLATE" > $tmpfile.template
+  echo "$DOC_TEMPLATE" > "$tmpfile.template"
   pandoc --to=html5+smart --from=markdown+smart -s --toc --section-divs \
     --metadata "pagetitle=${__opt__title:-$TITLE}" \
-    --highlight-style ${__opt__highlight:-haddock} \
+    --highlight-style "${__opt__highlight:-haddock}" \
     --template "$tmpfile.template" \
     -H <(echo "<style>$DOC_CSS</style>") \
     <(echo "$(doc::output "$@")") \
-    $output
+    "$output"
 }
