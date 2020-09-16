@@ -992,7 +992,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="stdstrin-str1-str2" class="level3 function">
 <h3 class="function">std::strin <code>&lt;str1&gt;</code> <code>&lt;str2&gt;</code></h3>
-<p>return true if <code>str1</code> is into <code>str2</code>, or false otherwise.</p>
+<p>return true if <code>str2</code> is into <code>str1</code>, or false otherwise.</p>
 <section id="parameters-18" class="level4">
 <h4>Parameters</h4>
 <dl>
@@ -1035,10 +1035,10 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="stdparse-arg_string" class="level3 function">
 <h3 class="function">std::parse <code>&lt;arg_string&gt;</code></h3>
-<p>parse an argument string in the form key=value and promote this variables to environment. The key <code>name</code> is mandatory. If the first parameter has no key, key <code>name</code> is using by default.</p>
+<p>parse an argument string in the form key=value and promote this variables to environment. The key <code>name</code> is mandatory. If the first parameter has no key, key <code>name</code> is using by default. The <code>name</code> parameter must be the first one.</p>
 <section id="usage-example-13" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="ex">std</span>::parse <span class="st">&quot;name=Jhon age=90&quot;</span></span>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="ex">std</span>::parse <span class="st">&quot;name=Jhon&quot;</span> <span class="st">&quot;age=90&quot;</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a><span class="bu">echo</span> <span class="st">&quot;</span><span class="va">$name</span><span class="st"> has </span><span class="va">$age</span><span class="st"> years old&quot;</span></span></code></pre></div>
 </section>
 </section>
