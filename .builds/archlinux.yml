@@ -5,7 +5,6 @@ sources:
 tasks:
   - build: |
       make -C blib
-      cp -f blib/blib bashdoc/src/blib
       make -C bashdoc
   - test: |
       make -C bashdoc test
