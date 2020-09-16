@@ -1,8 +1,11 @@
 image: archlinux
 sources:
   - https://git.sr.ht/~ajdiaz/bashdoc
+  - https://git.sr.ht/~ajdiaz/blib
 tasks:
   - build: |
+      make -C blib
+      cp -f blib/blib bashdoc/src/blib
       make -C bashdoc
   - test: |
       make -C bashdoc test
