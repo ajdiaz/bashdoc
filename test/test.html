@@ -14,6 +14,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -378,36 +379,36 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <section id="examples" class="level2">
 <h2>Examples</h2>
 <p>Let’s suppose the following content of the file <code>script.bash</code></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co"># mod: example</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="co"># txt: this module is an example for documentation.</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="co">#      The txt sections as also opt and env ones can</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="co">#      be multiline if lines are kept vertical aligned.</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="co"># fun: sum num1 num2</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="co"># txt: sum two numbers and output the result</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="co"># opt: num1: the first number to sum</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a><span class="co"># opt: num2: the second number to sum</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a><span class="co"># use: sum 1 3</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="co"># api: sum</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a><span class="fu">sum ()</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a><span class="kw">{</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>  <span class="bu">echo</span> <span class="st">&quot;</span><span class="va">$(($1</span> + <span class="va">$2))</span><span class="st">&quot;</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a><span class="kw">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mod: example</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># txt: this module is an example for documentation.</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#      The txt sections as also opt and env ones can</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#      be multiline if lines are kept vertical aligned.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># fun: sum num1 num2</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># txt: sum two numbers and output the result</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># opt: num1: the first number to sum</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># opt: num2: the second number to sum</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># use: sum 1 3</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># api: sum</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">sum ()</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">{</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> <span class="st">&quot;</span><span class="va">$(($1</span> <span class="op">+</span> <span class="va">$2))</span><span class="st">&quot;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div>
 <p>Now you can generate the HTML with the command:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="ex">bashdoc</span> -o doc.html script.bash</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bashdoc</span> <span class="at">-o</span> doc.html script.bash</span></code></pre></div>
 </section>
 <section id="using-api-name" class="level2">
 <h2>Using API name</h2>
 <p>Le’ts suppose the previous example code, and we need to add more functions there:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="co"># fun: internal_sum num1</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="co"># txt: return zero (yes, it&#39;s not very usefull function)</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="co"># api: internal</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="fu">internal_sum ()</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="kw">{</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>  <span class="bu">echo</span> 0</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a><span class="kw">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fun: internal_sum num1</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># txt: return zero (yes, it&#39;s not very usefull function)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># api: internal</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">internal_sum ()</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> 0</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div>
 <p>If we generate the HTML in the same way that we do previously, the result HTML will contain two documented functions: <code>sum</code> and <code>internal_sum</code>, but we don’t want the second one in the documentation. Of course we can remove the doc strings from there, but then we loose the documentation in the code too. To avoid this problem we can use the API name. If you look carefully, you can see that the api name in the first function is <code>sum</code>, and in the second one is <code>internal</code>. If we run bashdoc as following:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="ex">bashdoc</span> -A sum -o doc.html script.bash</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bashdoc</span> <span class="at">-A</span> sum <span class="at">-o</span> doc.html script.bash</span></code></pre></div>
 <p>We will create documentation only for functions tagged as API <em>sum</em>. Please note that if you force a specific API tag, then functions or modules without declared API will be not documented.</p>
 </section>
 <section id="using-custom-stylesheet" class="level2">
@@ -415,7 +416,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>By default bashdoc using its own CSS stylesheet and HTML template, which is pretty nice, by the way, but if you want to use your own style and/or HTML template, you can use it passing paramenters <code>-s</code> (for style) and <code>-t</code> (for template) to the bashdoc command.</p>
 <p>Accepted styleshet is any file which contains valid CSS code. Accepted template is any template accepted by pandoc.</p>
 <p>For example:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="ex">bashdoc</span> -s mystyle.css -t mytemplate.html -o doc.html script.bash</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bashdoc</span> <span class="at">-s</span> mystyle.css <span class="at">-t</span> mytemplate.html <span class="at">-o</span> doc.html script.bash</span></code></pre></div>
 <hr />
 </section>
 </section>
@@ -426,14 +427,14 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>The <code>arg</code> module provides a number of functions to parse arguments from command line. To use the <code>arg</code> module you need to create handler functions which will be called during the parser process. The handler functions should return the number of parameters comsumed from the parameter list. See example below for more information.</p>
 <section id="usage-example" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="fu">opt_quiet ()</span> <span class="kw">{</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>    <span class="va">QUIET=</span>true; <span class="bu">return</span> 1<span class="kw">;</span> # <span class="ex">we</span> consum only the -q param</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="kw">}</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="fu">create ()</span> <span class="kw">{</span> <span class="bu">echo</span> <span class="st">&quot;</span><span class="va">$arguments</span><span class="st">&quot;</span> <span class="kw">}</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a><span class="ex">arg</span>::opt MAIN -q --quiet   opt_quiet   <span class="st">&#39;do not output messages&#39;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a><span class="ex">arg</span>::action create create <span class="st">&#39;create new things&#39;</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a><span class="ex">arg</span>::param create <span class="st">&quot;arguments+&quot;</span>  <span class="st">&#39;argument to create subcommand&#39;</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a><span class="ex">arg</span>::parse <span class="st">&quot;</span><span class="va">$@</span><span class="st">&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">opt_quiet ()</span> <span class="kw">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">QUIET</span><span class="op">=</span>true<span class="kw">;</span> <span class="cf">return</span> <span class="dv">1</span><span class="kw">;</span> <span class="co"># we consum only the -q param</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">create ()</span> <span class="kw">{</span> <span class="bu">echo</span> <span class="st">&quot;</span><span class="va">$arguments</span><span class="st">&quot;</span> }</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">arg::opt</span> MAIN <span class="at">-q</span> <span class="at">--quiet</span>   opt_quiet   <span class="st">&#39;do not output messages&#39;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">arg::action</span> create create <span class="st">&#39;create new things&#39;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">arg::param</span> create <span class="st">&quot;arguments+&quot;</span>  <span class="st">&#39;argument to create subcommand&#39;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">arg::parse</span> <span class="st">&quot;</span><span class="va">$@</span><span class="st">&quot;</span></span></code></pre></div>
 </section>
 <section id="argopt-action-short-long-handler-help" class="level3 function">
 <h3 class="function">arg::opt <code>&lt;action&gt;</code> <code>&lt;short&gt;</code> <code>&lt;long&gt;</code> <code>&lt;handler&gt;</code> <code>[help]</code></h3>
@@ -570,8 +571,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>The <code>cache</code> module provides a simple in-memory cache.</p>
 <section id="usage-example-1" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="ex">cache</span>::put <span class="st">&quot;key&quot;</span> <span class="st">&quot;val&quot;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="ex">cache</span>::get <span class="st">&quot;key&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cache::put</span> <span class="st">&quot;key&quot;</span> <span class="st">&quot;val&quot;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">cache::get</span> <span class="st">&quot;key&quot;</span></span></code></pre></div>
 </section>
 <section id="cacheget-key" class="level3 function">
 <h3 class="function">cache::get <code>&lt;key&gt;</code></h3>
@@ -587,8 +588,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>The <code>config</code> module allows you to read configuration file in properties format</p>
 <section id="usage-example-2" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="ex">config</span>::load configname ./config.properties</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="bu">echo</span> <span class="va">$(</span><span class="ex">config</span>::get configname key<span class="va">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">config::load</span> configname ./config.properties</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$(</span><span class="ex">config::get</span> configname key<span class="va">)</span></span></code></pre></div>
 </section>
 <section id="configload-table-file" class="level3 function">
 <h3 class="function">config::load <code>&lt;table&gt;</code> <code>&lt;file&gt;</code></h3>
@@ -655,7 +656,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="usage-example-3" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="ex">curl</span>::get http://example.com</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl::get</span> http://example.com</span></code></pre></div>
 </section>
 </section>
 <section id="curlsource-url" class="level3 function">
@@ -663,7 +664,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>sources a file from url</p>
 <section id="usage-example-4" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="ex">curl</span>::source http://mydomain.com/file.bash</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl::source</span> http://mydomain.com/file.bash</span></code></pre></div>
 </section>
 </section>
 </section>
@@ -691,7 +692,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="usage-example-5" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="ex">doc</span>::read_blocks v1 <span class="op">&lt;</span> script</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doc::read_blocks</span> v1 <span class="op">&lt;</span> script</span></code></pre></div>
 </section>
 </section>
 <section id="docoutput-file" class="level3 function">
@@ -713,7 +714,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="usage-example-6" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="ex">doc</span>::output file</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doc::output</span> file</span></code></pre></div>
 </section>
 </section>
 <section id="docgenerate-file" class="level3 function">
@@ -729,7 +730,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="usage-example-7" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="ex">doc</span>::generate file</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doc::generate</span> file</span></code></pre></div>
 </section>
 </section>
 </section>
@@ -741,7 +742,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>print to stderr a traceback of an error.</p>
 <section id="usage-example-8" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="fu">false</span> <span class="kw">||</span> <span class="ex">err</span>::trace <span class="st">&quot;Error because of false&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">false</span> <span class="kw">||</span> <span class="ex">err::trace</span> <span class="st">&quot;Error because of false&quot;</span></span></code></pre></div>
 </section>
 </section>
 </section>
@@ -758,10 +759,10 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>The <code>mutex</code> module provides a way to ensure critical region access across different processes. NOTE this module does not work fine on some filesystems, like NFS, AFS and others.</p>
 <section id="usage-example-9" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="ex">mutex</span>::run mymutex sleep 10 # run a sleep in a critical region</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="ex">mutex</span>::adquire mymutex</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a><span class="co"># do some critical changes</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a><span class="ex">mutex</span>::release mymutex</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mutex::run</span> mymutex sleep 10 <span class="co"># run a sleep in a critical region</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mutex::adquire</span> mymutex</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># do some critical changes</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="ex">mutex::release</span> mymutex</span></code></pre></div>
 </section>
 <section id="mutexadquire-name" class="level3 function">
 <h3 class="function">mutex::adquire <code>&lt;name&gt;</code></h3>
@@ -949,8 +950,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="usage-example-10" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="fu">somefunc ()</span> <span class="kw">{</span> <span class="bu">echo</span> <span class="st">&quot;exiting&quot;</span><span class="kw">;</span> <span class="kw">}</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="ex">std</span>::add_quit_handler somefunc</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">somefunc ()</span> <span class="kw">{</span> <span class="bu">echo</span> <span class="st">&quot;exiting&quot;</span><span class="kw">;</span> <span class="kw">}</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">std::add_quit_handler</span> somefunc</span></code></pre></div>
 </section>
 </section>
 <section id="stdhmac-text" class="level3 function">
@@ -974,8 +975,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="usage-example-11" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="ex">std</span>::hmac <span class="st">&quot;hello world&quot;</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a><span class="va">ALGO=</span>md5 <span class="ex">std</span>::hmac <span class="st">&quot;hello world&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">std::hmac</span> <span class="st">&quot;hello world&quot;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="va">ALGO</span><span class="op">=</span>md5 <span class="ex">std::hmac</span> <span class="st">&quot;hello world&quot;</span></span></code></pre></div>
 </section>
 </section>
 <section id="stdmute-command" class="level3 function">
@@ -1006,7 +1007,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="usage-example-12" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="ex">std</span>::strin <span class="st">&quot;somelargestring&quot;</span> <span class="st">&quot;some&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">std::strin</span> <span class="st">&quot;somelargestring&quot;</span> <span class="st">&quot;some&quot;</span></span></code></pre></div>
 </section>
 </section>
 <section id="stdsleep-seconds" class="level3 function">
@@ -1038,8 +1039,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>parse an argument string in the form key=value and promote this variables to environment. The key <code>name</code> is mandatory. If the first parameter has no key, key <code>name</code> is using by default. The <code>name</code> parameter must be the first one.</p>
 <section id="usage-example-13" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="ex">std</span>::parse <span class="st">&quot;name=Jhon&quot;</span> <span class="st">&quot;age=90&quot;</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a><span class="bu">echo</span> <span class="st">&quot;</span><span class="va">$name</span><span class="st"> has </span><span class="va">$age</span><span class="st"> years old&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">std::parse</span> <span class="st">&quot;name=Jhon&quot;</span> <span class="st">&quot;age=90&quot;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;</span><span class="va">$name</span><span class="st"> has </span><span class="va">$age</span><span class="st"> years old&quot;</span></span></code></pre></div>
 </section>
 </section>
 <section id="stdrun-command" class="level3 function">
@@ -1090,8 +1091,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="usage-example-14" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="ex">str2array</span> <span class="st">&quot;one,two,three&quot;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a><span class="bu">echo</span> <span class="st">&quot;</span><span class="va">${str2array_ret[@]}</span><span class="st">&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">str2array</span> <span class="st">&quot;one,two,three&quot;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;</span><span class="va">${str2array_ret</span><span class="op">[@]</span><span class="va">}</span><span class="st">&quot;</span></span></code></pre></div>
 </section>
 </section>
 </section>
@@ -1127,10 +1128,10 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="usage-example-15" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="ex">tmp</span>::create</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a><span class="co"># do some actions in current directory, which is temporary one</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true"></a><span class="ex">tmp</span>::destroy</span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="bu">echo</span> <span class="va">$(</span><span class="ex">tmp</span>::file<span class="va">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tmp::create</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># do some actions in current directory, which is temporary one</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ex">tmp::destroy</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$(</span><span class="ex">tmp::file</span><span class="va">)</span></span></code></pre></div>
 </section>
 <section id="tmpcreate-dirname" class="level3 function">
 <h3 class="function">tmp::create <code>&lt;dirname&gt;</code></h3>

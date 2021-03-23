@@ -962,18 +962,29 @@ out::user " ${COLOR_WARN}'---'${COLOR_NONE}"
                                         
 }
 
-opt_files=""
+export opt_files=""
 # general options handlers
 main::opt_version () { out::info "Bashdoc $VERSION"; exit 0;}
-main::opt_title () { TITLE="$1"; return 2; }
-main::opt_author () { AUTHOR="$1"; return 2; }
-main::opt_output () { OUTPUT="$1"; return 2; }
-main::opt_date () { DATE="$(date +%Y-%m-%d)"; return 1; }
+main::opt_title () { export TITLE="$1"; return 2; }
+main::opt_author () { export AUTHOR="$1"; return 2; }
+main::opt_output () { export OUTPUT="$1"; return 2; }
+main::opt_date () { export DATE; DATE="$(date +%Y-%m-%d)"; return 1; }
 main::opt_file () { opt_files="$opt_files $1"; return 2; }
-main::opt_api () { API="$1"; return 2; }
-main::opt_style () { __opt__style="$1"; echo "$@" ; return 2; }
-main::opt_template () { __opt__template="$1"; return 2; }
-main::opt_highlight () { __opt__highlight="$1"; return 2; }
+main::opt_api () { export API="$1"; return 2; }
+main::opt_style () { export __opt__style="$1"; echo "$@" ; return 2; }
+main::opt_template () { export __opt__template="$1"; return 2; }
+main::opt_highlight () { export __opt__highlight="$1"; return 2; }
+main::opt_format () {
+  __opt__format="$1";
+  case "$__opt__format" in
+    html|md|markdown|md2|markdown2|man) ;;
+    *)
+      echo "invalid format." >&2
+      echo "Valid formats are: html, md, man" >&2
+      exit 2;;
+  esac
+  return 2;
+}
 
 # main function really
 main::action () {
@@ -991,6 +1002,7 @@ main () {
   arg::opt MAIN -A --api     main::opt_api          'set api to be documented'
   arg::opt MAIN -s --style   main::opt_style        'path to CSS stylesheet'
   arg::opt MAIN -t --template  main::opt_template   'path to HTML template'
+  arg::opt MAIN -F --format  main::opt_format   'set the output format: html,man,md'
   arg::opt MAIN -H --highlight-theme  main::opt_highlight \
     'theme name to highlight code'
 
@@ -1157,6 +1169,7 @@ h1 code,h2 code,h3 code,h4 code,.section p code, dl code {
 }
 '
 
+# shellcheck disable=SC2016
 DOC_TEMPLATE='
 $if(html5)$
 <!DOCTYPE html>
@@ -1374,6 +1387,9 @@ declare -A __doc__mods
 declare -A __doc__funs
 declare -A __doc__apis
 
+declare -x opt_files
+declare -x __opt__template
+declare -x __opt__style
 
 # fun: doc::output <file>+
 # api: bashdoc
@@ -1394,8 +1410,6 @@ doc::output ()
     echo -e "\n---\n"
   done
   for doc in "$@"; do
-    local docname="${doc#./}"
-
     if [[ "$API" ]]; then
       for api in ${API//,/ }; do
         echo "# $api API Reference" && echo
@@ -1416,30 +1430,39 @@ doc::output ()
 # use: doc::generate file
 doc::generate ()
 {
-  local output="${OUTPUT:+-o $OUTPUT}"
-  local tmpfile="$(tmp::file)"
+  local output=( ${OUTPUT:+-o $OUTPUT} )
+  local tmpfile; tmpfile="$(tmp::file)"
 
-  if [ "${__opt__template}" ]; then
-    DOC_TEMPLATE="$(<${__opt__template})"
+  if [[ "${__opt__template}" ]]; then
+    DOC_TEMPLATE="$(< "${__opt__template}")"
     out::info "Using template: ${__opt__template}"
   fi
 
-  if [ "${__opt__style}" ]; then
-    DOC_CSS="$(<${__opt__style})"
+  if [[ "${__opt__style}" ]]; then
+    DOC_CSS="$(< "${__opt__style}")"
     out::info "Using stylesheet: ${__opt__style}"
   fi
 
   out::info "Highlight syntax: ${__opt__highlight:-haddock}"
-  out::info "Generating HTML into ${OUTPUT:-stdout}"
+  out::info "Generating ${__opt__format:-html} into ${OUTPUT:-stdout}"
 
-  echo "$DOC_TEMPLATE" > $tmpfile.template
-  pandoc --to=html5+smart --from=markdown+smart -s --toc --section-divs \
-    --metadata "pagetitle=${__opt__title:-$TITLE}" \
-    --highlight-style ${__opt__highlight:-haddock} \
-    --template "$tmpfile.template" \
-    -H <(echo "<style>$DOC_CSS</style>") \
-    <(echo "$(doc::output "$@")") \
-    $output
+  echo "$DOC_TEMPLATE" > "$tmpfile.template"
+
+  case "${__opt__format:-html}" in
+    markdown|md|markdown2|md2)
+      doc::output "$@" > "$OUTPUT";;
+    man)
+      pandoc --to=man --from=markdown+smart \
+        <(doc::output "$@") "${output[@]}";;
+    html)
+      pandoc --to=html5+smart --from=markdown+smart -s --toc --section-divs \
+        --metadata "pagetitle=${__opt__title:-$TITLE}" \
+        --highlight-style "${__opt__highlight:-haddock}" \
+        --template "$tmpfile.template" \
+        -H <(echo "<style>$DOC_CSS</style>") \
+        <(doc::output "$@") \
+        "${output[@]}";;
+  esac
 }
 std::installed 'pandoc' ||  err::trace 'pandoc is required but not found'
 main "$@"

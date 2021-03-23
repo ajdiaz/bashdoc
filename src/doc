@@ -153,6 +153,7 @@ h1 code,h2 code,h3 code,h4 code,.section p code, dl code {
 }
 '
 
+# shellcheck disable=SC2016
 DOC_TEMPLATE='
 $if(html5)$
 <!DOCTYPE html>
@@ -370,6 +371,9 @@ declare -A __doc__mods
 declare -A __doc__funs
 declare -A __doc__apis
 
+declare -x opt_files
+declare -x __opt__template
+declare -x __opt__style
 
 # fun: doc::output <file>+
 # api: bashdoc
@@ -390,8 +394,6 @@ doc::output ()
     echo -e "\n---\n"
   done
   for doc in "$@"; do
-    local docname="${doc#./}"
-
     if [[ "$API" ]]; then
       for api in ${API//,/ }; do
         echo "# $api API Reference" && echo
@@ -412,28 +414,37 @@ doc::output ()
 # use: doc::generate file
 doc::generate ()
 {
-  local output="${OUTPUT:+-o $OUTPUT}"
-  local tmpfile="$(tmp::file)"
+  local output=( ${OUTPUT:+-o $OUTPUT} )
+  local tmpfile; tmpfile="$(tmp::file)"
 
-  if [ "${__opt__template}" ]; then
-    DOC_TEMPLATE="$(<${__opt__template})"
+  if [[ "${__opt__template}" ]]; then
+    DOC_TEMPLATE="$(< "${__opt__template}")"
     out::info "Using template: ${__opt__template}"
   fi
 
-  if [ "${__opt__style}" ]; then
-    DOC_CSS="$(<${__opt__style})"
+  if [[ "${__opt__style}" ]]; then
+    DOC_CSS="$(< "${__opt__style}")"
     out::info "Using stylesheet: ${__opt__style}"
   fi
 
   out::info "Highlight syntax: ${__opt__highlight:-haddock}"
-  out::info "Generating HTML into ${OUTPUT:-stdout}"
+  out::info "Generating ${__opt__format:-html} into ${OUTPUT:-stdout}"
 
-  echo "$DOC_TEMPLATE" > $tmpfile.template
-  pandoc --to=html5+smart --from=markdown+smart -s --toc --section-divs \
-    --metadata "pagetitle=${__opt__title:-$TITLE}" \
-    --highlight-style ${__opt__highlight:-haddock} \
-    --template "$tmpfile.template" \
-    -H <(echo "<style>$DOC_CSS</style>") \
-    <(echo "$(doc::output "$@")") \
-    $output
+  echo "$DOC_TEMPLATE" > "$tmpfile.template"
+
+  case "${__opt__format:-html}" in
+    markdown|md|markdown2|md2)
+      doc::output "$@" > "$OUTPUT";;
+    man)
+      pandoc --to=man --from=markdown+smart \
+        <(doc::output "$@") "${output[@]}";;
+    html)
+      pandoc --to=html5+smart --from=markdown+smart -s --toc --section-divs \
+        --metadata "pagetitle=${__opt__title:-$TITLE}" \
+        --highlight-style "${__opt__highlight:-haddock}" \
+        --template "$tmpfile.template" \
+        -H <(echo "<style>$DOC_CSS</style>") \
+        <(doc::output "$@") \
+        "${output[@]}";;
+  esac
 }
