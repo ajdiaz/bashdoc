@@ -233,9 +233,12 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <ul>
 <li><a href="#doc">doc</a>
 <ul>
-<li><a href="#docread_blocks-api">doc::read_blocks <code>[api]</code></a></li>
-<li><a href="#docoutput-file">doc::output <code>&lt;file&gt;+</code></a></li>
-<li><a href="#docgenerate-file">doc::generate <code>&lt;file&gt;+</code></a></li>
+<li><a href="#docread_blocks-api">doc::read_blocks
+<code>[api]</code></a></li>
+<li><a href="#docoutput-file">doc::output
+<code>&lt;file&gt;+</code></a></li>
+<li><a href="#docgenerate-file">doc::generate
+<code>&lt;file&gt;+</code></a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -249,35 +252,48 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>Documentation generator for bash applications.</p>
 <section id="documentation-syntax" class="level2">
 <h2>Documentation syntax</h2>
-<p>Bashdoc will evaluate some special comments into the source code. The comments are prefixed with the following doc strings:</p>
+<p>Bashdoc will evaluate some special comments into the source code. The
+comments are prefixed with the following doc strings:</p>
 <dl>
 <dt><code># mod: modname</code></dt>
-<dd>The module name itself.
+<dd>
+The module name itself.
 </dd>
 <dt><code># fun: funsignature</code></dt>
-<dd>The function signature, usually include parameters here, but not describe them.
+<dd>
+The function signature, usually include parameters here, but not
+describe them.
 </dd>
 <dt><code># txt:</code></dt>
-<dd>Textual description of the previous declarated section (module or function).
+<dd>
+Textual description of the previous declarated section (module or
+function).
 </dd>
 <dt><code># opt: param: ...</code></dt>
-<dd>Describe an option or parameter to a function.
+<dd>
+Describe an option or parameter to a function.
 </dd>
 <dt><code># env: VAR: ...</code></dt>
-<dd>Describe a environment variable called <code>$VAR</code>.
+<dd>
+Describe a environment variable called <code>$VAR</code>.
 </dd>
 <dt><code># use: ...</code></dt>
-<dd>Provides an example of use of the function or module.
+<dd>
+Provides an example of use of the function or module.
 </dd>
 <dt><code># api: ...</code></dt>
-<dd>Set the API name for this element. The API name could be used to filter what functions or modules will be documented in final output.
+<dd>
+Set the API name for this element. The API name could be used to filter
+what functions or modules will be documented in final output.
 </dd>
 </dl>
 </section>
 <section id="examples" class="level2">
 <h2>Examples</h2>
-<p>Let’s suppose the following content of the file <code>script.bash</code></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mod: example</span></span>
+<p>Let’s suppose the following content of the file
+<code>script.bash</code></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mod: example</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># txt: this module is an example for documentation.</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#      The txt sections as also opt and env ones can</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#      be multiline if lines are kept vertical aligned.</span></span>
@@ -293,28 +309,47 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> <span class="st">&quot;</span><span class="va">$(($1</span> <span class="op">+</span> <span class="va">$2))</span><span class="st">&quot;</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div>
 <p>Now you can generate the HTML with the command:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bashdoc</span> <span class="at">-o</span> doc.html script.bash</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bashdoc</span> <span class="at">-o</span> doc.html script.bash</span></code></pre></div>
 </section>
 <section id="using-api-name" class="level2">
 <h2>Using API name</h2>
-<p>Le’ts suppose the previous example code, and we need to add more functions there:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fun: internal_sum num1</span></span>
+<p>Le’ts suppose the previous example code, and we need to add more
+functions there:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fun: internal_sum num1</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># txt: return zero (yes, it&#39;s not very usefull function)</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># api: internal</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">internal_sum ()</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">{</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> 0</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div>
-<p>If we generate the HTML in the same way that we do previously, the result HTML will contain two documented functions: <code>sum</code> and <code>internal_sum</code>, but we don’t want the second one in the documentation. Of course we can remove the doc strings from there, but then we loose the documentation in the code too. To avoid this problem we can use the API name. If you look carefully, you can see that the api name in the first function is <code>sum</code>, and in the second one is <code>internal</code>. If we run bashdoc as following:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bashdoc</span> <span class="at">-A</span> sum <span class="at">-o</span> doc.html script.bash</span></code></pre></div>
-<p>We will create documentation only for functions tagged as API <em>sum</em>. Please note that if you force a specific API tag, then functions or modules without declared API will be not documented.</p>
+<p>If we generate the HTML in the same way that we do previously, the
+result HTML will contain two documented functions: <code>sum</code> and
+<code>internal_sum</code>, but we don’t want the second one in the
+documentation. Of course we can remove the doc strings from there, but
+then we loose the documentation in the code too. To avoid this problem
+we can use the API name. If you look carefully, you can see that the api
+name in the first function is <code>sum</code>, and in the second one is
+<code>internal</code>. If we run bashdoc as following:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bashdoc</span> <span class="at">-A</span> sum <span class="at">-o</span> doc.html script.bash</span></code></pre></div>
+<p>We will create documentation only for functions tagged as API
+<em>sum</em>. Please note that if you force a specific API tag, then
+functions or modules without declared API will be not documented.</p>
 </section>
 <section id="using-custom-stylesheet" class="level2">
 <h2>Using custom stylesheet</h2>
-<p>By default bashdoc using its own CSS stylesheet and HTML template, which is pretty nice, by the way, but if you want to use your own style and/or HTML template, you can use it passing paramenters <code>-s</code> (for style) and <code>-t</code> (for template) to the bashdoc command.</p>
-<p>Accepted styleshet is any file which contains valid CSS code. Accepted template is any template accepted by pandoc.</p>
+<p>By default bashdoc using its own CSS stylesheet and HTML template,
+which is pretty nice, by the way, but if you want to use your own style
+and/or HTML template, you can use it passing paramenters <code>-s</code>
+(for style) and <code>-t</code> (for template) to the bashdoc
+command.</p>
+<p>Accepted styleshet is any file which contains valid CSS code.
+Accepted template is any template accepted by pandoc.</p>
 <p>For example:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bashdoc</span> <span class="at">-s</span> mystyle.css <span class="at">-t</span> mytemplate.html <span class="at">-o</span> doc.html script.bash</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bashdoc</span> <span class="at">-s</span> mystyle.css <span class="at">-t</span> mytemplate.html <span class="at">-o</span> doc.html script.bash</span></code></pre></div>
 <hr />
 </section>
 </section>
@@ -322,15 +357,21 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h1>bashdoc API Reference</h1>
 <section id="doc" class="level2 module">
 <h2 class="module">doc</h2>
-<p>The <code>doc</code> module provides functions to convert bash source code to HTML, using markdown and specific CSS themes.</p>
+<p>The <code>doc</code> module provides functions to convert bash source
+code to HTML, using markdown and specific CSS themes.</p>
 <section id="docread_blocks-api" class="level3 function">
 <h3 class="function">doc::read_blocks <code>[api]</code></h3>
-<p>read and print blocks readed from stdin which match with specific api definition. If api is not provided all elements will be documentated, if api is provided, only elements with declared api matched with provided one will be documented. If api is provided, but is not declared in documentation, then item will be documentated too.</p>
+<p>read and print blocks readed from stdin which match with specific api
+definition. If api is not provided all elements will be documentated, if
+api is provided, only elements with declared api matched with provided
+one will be documented. If api is provided, but is not declared in
+documentation, then item will be documentated too.</p>
 <section id="parameters" class="level4">
 <h4>Parameters</h4>
 <dl>
 <dt><code>api</code></dt>
-<dd>a string which identify the API to be documented.
+<dd>
+a string which identify the API to be documented.
 </dd>
 </dl>
 </section>
@@ -338,13 +379,16 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Environment variables</h4>
 <dl>
 <dt><code>DOCSTRING</code></dt>
-<dd>The docstring comment which identify a special comment used for documentation. By default ‘sha-space’ (# ).
+<dd>
+The docstring comment which identify a special comment used for
+documentation. By default ‘sha-space’ (# ).
 </dd>
 </dl>
 </section>
 <section id="usage-example" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doc::read_blocks</span> v1 <span class="op">&lt;</span> script</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doc::read_blocks</span> v1 <span class="op">&lt;</span> script</span></code></pre></div>
 </section>
 </section>
 <section id="docoutput-file" class="level3 function">
@@ -354,19 +398,23 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Environment variables</h4>
 <dl>
 <dt><code>TITLE</code></dt>
-<dd>The document title.
+<dd>
+The document title.
 </dd>
 <dt><code>AUTHOR</code></dt>
-<dd>The document author.
+<dd>
+The document author.
 </dd>
 <dt><code>DATE</code></dt>
-<dd>The date of the produced document.
+<dd>
+The date of the produced document.
 </dd>
 </dl>
 </section>
 <section id="usage-example-1" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doc::output</span> file</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doc::output</span> file</span></code></pre></div>
 </section>
 </section>
 <section id="docgenerate-file" class="level3 function">
@@ -376,13 +424,15 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Environment variables</h4>
 <dl>
 <dt><code>OUTPUT</code></dt>
-<dd>filename of the output file or stdout if not provided.
+<dd>
+filename of the output file or stdout if not provided.
 </dd>
 </dl>
 </section>
 <section id="usage-example-2" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doc::generate</span> file</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doc::generate</span> file</span></code></pre></div>
 <hr />
 </section>
 </section>

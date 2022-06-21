@@ -936,7 +936,7 @@ std::str2array () {
   str2array_ret=( "$@" )
 }
 declare -xa str2array_ret
-BLIB_VERSION='2.0-1-gbf431b8'
+BLIB_VERSION='2.0-3-g07b963f'
 #! /bin/bash
 # mod: main
 # txt: The ``main`` module contain the specified potion body.
