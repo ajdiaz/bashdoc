@@ -85,6 +85,9 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
         float: left;
         background: #3E4042;
         color: #dadada;
+        overflow-y: scroll;
+        position: fixed;
+        max-height: 90vh;
       }
       body {
       font-family: "Work sans", Helvetica, Arial, sans-serif;
@@ -100,6 +103,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
       #toc ul { padding:0; margin:0; }
       #toc > ul > li { margin-bottom: 2em; }
+      #toc > ul > li > a { font-weight: bold; color: #fff; }
+      #toc > ul > li > a:hover { text-decoration: underline; }
       #toc li { list-style: none; padding-left:0; }
       #toc ul ul { padding-left: 1.25em; }
       #toc code { display:none; }
@@ -127,10 +132,10 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
       }
 
       pre.sourceCode {
-        border-radius: 0;
+        border-radius: 5px;
         border: 0;
-        background: #ededed;
-        padding:10px 5px 10px 5px;
+        background: #dfdfdf;
+        padding:10px;
         width: auto;
         font-size: 90%;
       }
@@ -194,6 +199,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     .module dd:after {
       display: block;
       content: "";
+      clear: both;
     }
     .module dt:after {
       content: ":";
@@ -222,22 +228,26 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <body class="book toc2 toc-left">
 <div id="toc" class="toc2">
 <ul>
-<li><a href="#bashdoc">bashdoc</a>
+<li><a href="#bashdoc" id="toc-bashdoc">bashdoc</a>
 <ul>
-<li><a href="#documentation-syntax">Documentation syntax</a></li>
-<li><a href="#examples">Examples</a></li>
-<li><a href="#using-api-name">Using API name</a></li>
-<li><a href="#using-custom-stylesheet">Using custom stylesheet</a></li>
+<li><a href="#documentation-syntax"
+id="toc-documentation-syntax">Documentation syntax</a></li>
+<li><a href="#examples" id="toc-examples">Examples</a></li>
+<li><a href="#using-api-name" id="toc-using-api-name">Using API
+name</a></li>
+<li><a href="#using-custom-stylesheet"
+id="toc-using-custom-stylesheet">Using custom stylesheet</a></li>
 </ul></li>
-<li><a href="#bashdoc-api-reference">bashdoc API Reference</a>
+<li><a href="#bashdoc-api-reference"
+id="toc-bashdoc-api-reference">bashdoc API Reference</a>
 <ul>
-<li><a href="#doc">doc</a>
+<li><a href="#doc" id="toc-doc">doc</a>
 <ul>
-<li><a href="#docread_blocks-api">doc::read_blocks
-<code>[api]</code></a></li>
-<li><a href="#docoutput-file">doc::output
+<li><a href="#docread_blocks-api"
+id="toc-docread_blocks-api">doc::read_blocks <code>[api]</code></a></li>
+<li><a href="#docoutput-file" id="toc-docoutput-file">doc::output
 <code>&lt;file&gt;+</code></a></li>
-<li><a href="#docgenerate-file">doc::generate
+<li><a href="#docgenerate-file" id="toc-docgenerate-file">doc::generate
 <code>&lt;file&gt;+</code></a></li>
 </ul></li>
 </ul></li>

@@ -640,6 +640,21 @@ print a user defined message in stdout
 `COLOR_USER`
 : defines the color to be used in this kind of messages.
 
+## proc {.module}
+
+The `proc` module provides a number of functions to manage parallel
+processes
+
+
+### proc::waitn `[number]` {.function}
+
+wait for n procs to finished, or for everyone if no number specify
+
+#### Parameters
+
+`number`
+: the number of proccess to wait for or none if wait for everyone.
+
 ## std {.module}
 
 The `std` module contains a numer of standard functions usefull to
@@ -724,12 +739,6 @@ return true if `str2` is into `str1`, or false otherwise.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.bash}
 std::strin "somelargestring" "some"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-### std::sleep `<seconds>` {.function}
-
-sleep for specified number of seconds. This function is pure-bash, so
-not need sleep(1) command.
 
 
 ### std::func `<func_name>` {.function}

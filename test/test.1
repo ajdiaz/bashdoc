@@ -6,34 +6,34 @@ Documentation generator for bash applications.
 Bashdoc will evaluate some special comments into the source code.
 The comments are prefixed with the following doc strings:
 .TP
-\f[B]\f[CB]# mod: modname\f[B]\f[R]
+\f[V]# mod: modname\f[R]
 The module name itself.
 .TP
-\f[B]\f[CB]# fun: funsignature\f[B]\f[R]
+\f[V]# fun: funsignature\f[R]
 The function signature, usually include parameters here, but not
 describe them.
 .TP
-\f[B]\f[CB]# txt:\f[B]\f[R]
+\f[V]# txt:\f[R]
 Textual description of the previous declarated section (module or
 function).
 .TP
-\f[B]\f[CB]# opt: param: ...\f[B]\f[R]
+\f[V]# opt: param: ...\f[R]
 Describe an option or parameter to a function.
 .TP
-\f[B]\f[CB]# env: VAR: ...\f[B]\f[R]
-Describe a environment variable called \f[C]$VAR\f[R].
+\f[V]# env: VAR: ...\f[R]
+Describe a environment variable called \f[V]$VAR\f[R].
 .TP
-\f[B]\f[CB]# use: ...\f[B]\f[R]
+\f[V]# use: ...\f[R]
 Provides an example of use of the function or module.
 .TP
-\f[B]\f[CB]# api: ...\f[B]\f[R]
+\f[V]# api: ...\f[R]
 Set the API name for this element.
 The API name could be used to filter what functions or modules will be
 documented in final output.
 .SS Examples
 .PP
 Let\[cq]s suppose the following content of the file
-\f[C]script.bash\f[R]
+\f[V]script.bash\f[R]
 .IP
 .nf
 \f[C]
@@ -80,14 +80,14 @@ internal_sum ()
 .fi
 .PP
 If we generate the HTML in the same way that we do previously, the
-result HTML will contain two documented functions: \f[C]sum\f[R] and
-\f[C]internal_sum\f[R], but we don\[cq]t want the second one in the
+result HTML will contain two documented functions: \f[V]sum\f[R] and
+\f[V]internal_sum\f[R], but we don\[cq]t want the second one in the
 documentation.
 Of course we can remove the doc strings from there, but then we loose
 the documentation in the code too.
 To avoid this problem we can use the API name.
 If you look carefully, you can see that the api name in the first
-function is \f[C]sum\f[R], and in the second one is \f[C]internal\f[R].
+function is \f[V]sum\f[R], and in the second one is \f[V]internal\f[R].
 If we run bashdoc as following:
 .IP
 .nf
@@ -104,8 +104,8 @@ modules without declared API will be not documented.
 .PP
 By default bashdoc using its own CSS stylesheet and HTML template, which
 is pretty nice, by the way, but if you want to use your own style and/or
-HTML template, you can use it passing paramenters \f[C]-s\f[R] (for
-style) and \f[C]-t\f[R] (for template) to the bashdoc command.
+HTML template, you can use it passing paramenters \f[V]-s\f[R] (for
+style) and \f[V]-t\f[R] (for template) to the bashdoc command.
 .PP
 Accepted styleshet is any file which contains valid CSS code.
 Accepted template is any template accepted by pandoc.
@@ -122,9 +122,9 @@ bashdoc -s mystyle.css -t mytemplate.html -o doc.html script.bash
 .SH API Reference
 .SS arg
 .PP
-The \f[C]arg\f[R] module provides a number of functions to parse
+The \f[V]arg\f[R] module provides a number of functions to parse
 arguments from command line.
-To use the \f[C]arg\f[R] module you need to create handler functions
+To use the \f[V]arg\f[R] module you need to create handler functions
 which will be called during the parser process.
 The handler functions should return the number of parameters comsumed
 from the parameter list.
@@ -143,102 +143,102 @@ arg::param create \[dq]arguments+\[dq]  \[aq]argument to create subcommand\[aq]
 arg::parse \[dq]$\[at]\[dq]
 \f[R]
 .fi
-.SS arg::opt \f[C]<action>\f[R] \f[C]<short>\f[R] \f[C]<long>\f[R] \f[C]<handler>\f[R] \f[C][help]\f[R]
+.SS arg::opt \f[V]<action>\f[R] \f[V]<short>\f[R] \f[V]<long>\f[R] \f[V]<handler>\f[R] \f[V][help]\f[R]
 .PP
 set an option for a specific action argument.
 .SS Parameters
 .TP
-\f[B]\f[CB]action\f[B]\f[R]
+\f[V]action\f[R]
 the action for which the option will be added
 .TP
-\f[B]\f[CB]short\f[B]\f[R]
-the short form of the option (usually prefixed by \f[C]-\f[R])
+\f[V]short\f[R]
+the short form of the option (usually prefixed by \f[V]-\f[R])
 .TP
-\f[B]\f[CB]long\f[B]\f[R]
-the long form of the option (usually prefixed by \f[C]--\f[R])
+\f[V]long\f[R]
+the long form of the option (usually prefixed by \f[V]--\f[R])
 .TP
-\f[B]\f[CB]handler\f[B]\f[R]
+\f[V]handler\f[R]
 function to handler when option is present.
-.SS arg::parse::opt::fail \f[C]<cmdline>\f[R]
+.SS arg::parse::opt::fail \f[V]<cmdline>\f[R]
 .PP
 exit program with error 2 (cmdline error) interpreting cmdline passed as
 argument.
 .SS Parameters
 .TP
-\f[B]\f[CB]cmdline\f[B]\f[R]
+\f[V]cmdline\f[R]
 the cmdline which fails.
-.SS arg::parse::opt::long \f[C]<action>\f[R] \f[C]<option>\f[R] \f[C][option\f[R] \f[C]argument]\f[R]
+.SS arg::parse::opt::long \f[V]<action>\f[R] \f[V]<option>\f[R] \f[V][option\f[R] \f[V]argument]\f[R]
 .PP
 set the specific long option for the action passed as argument.
 The option can be suffixed with a colon (:) to specify a mandatory
 argument.
-.SS arg::parse::opt::short \f[C]<action>\f[R] \f[C]<option>\f[R] \f[C][option\f[R] \f[C]argument]\f[R]
+.SS arg::parse::opt::short \f[V]<action>\f[R] \f[V]<option>\f[R] \f[V][option\f[R] \f[V]argument]\f[R]
 .PP
 set the specific short option for the action passed as argument.
 The option can be suffixed with a colon (:) to specify a mandatory
 argument.
-.SS arg::action \f[C]<action>\f[R] \f[C]<handler>\f[R] \f[C][help_message]\f[R]
+.SS arg::action \f[V]<action>\f[R] \f[V]<handler>\f[R] \f[V][help_message]\f[R]
 .PP
 set a new action in argument parser.
 .SS Parameters
 .TP
-\f[B]\f[CB]action\f[B]\f[R]
+\f[V]action\f[R]
 the action name to add to the parser
 .TP
-\f[B]\f[CB]handler\f[B]\f[R]
+\f[V]handler\f[R]
 the function name to use as handler for this action.
 .TP
-\f[B]\f[CB]help_message\f[B]\f[R]
+\f[V]help_message\f[R]
 a message to print on usage.
-.SS arg::usage::action \f[C]<action>\f[R]
+.SS arg::usage::action \f[V]<action>\f[R]
 .PP
 print usage information for the action passed as argument.
-.SS arg:::main::help \f[C]<text>\f[R]
+.SS arg:::main::help \f[V]<text>\f[R]
 .PP
 Set the main help for the program
 .SS Parameters
 .TP
-\f[B]\f[CB]text\f[B]\f[R]
+\f[V]text\f[R]
 the main help string for the program
-.SS arg:::main::action \f[C]<fun>\f[R]
+.SS arg:::main::action \f[V]<fun>\f[R]
 .PP
 Set the function handler for main action, used when no action defined.
 .SS Parameters
 .TP
-\f[B]\f[CB]fun\f[B]\f[R]
+\f[V]fun\f[R]
 the handler for the MAIN action.
 .SS arg::usage
 .PP
 print main usage information
 .SS Environment variables
 .TP
-\f[B]\f[CB]E\f[B]\f[R]
+\f[V]E\f[R]
 the error code to return to OS on exit.
-.SS arg::parse::action \f[C]<action>\f[R] \f[C][arguments]\f[R]
+.SS arg::parse::action \f[V]<action>\f[R] \f[V][arguments]\f[R]
 .PP
 parse arguments starting with action passed as argument.
-.SS arg::parse::arg \f[C]<action>\f[R] \f[C][arguments]\f[R]
+.SS arg::parse::arg \f[V]<action>\f[R] \f[V][arguments]\f[R]
 .PP
 parse arguments (not options) for specific action passed as argument.
-.SS arg::parse \f[C][arguments]\f[R]
+.SS arg::parse \f[V][arguments]\f[R]
 .PP
 parse arguments according with previous configured parser.
-.SS arg::param \f[C]<action>\f[R] \f[C]<parameter_name>\f[R] \f[C][help_str]\f[R]
+.SS arg::param \f[V]<action>\f[R] \f[V]<parameter_name>\f[R] \f[V][help_str]\f[R]
 .PP
 add position parameter to parser.
 .SS Parameters
 .TP
-\f[B]\f[CB]action\f[B]\f[R]
+\f[V]action\f[R]
 action where add the parameter
 .TP
-\f[B]\f[CB]parameter_name\f[B]\f[R]
+\f[V]parameter_name\f[R]
 the name of the paramenter
 .TP
-\f[B]\f[CB]help_str\f[B]\f[R]
+\f[V]help_str\f[R]
 a help string for the parameter to show in usage
 .SS cache
 .PP
-The \f[C]cache\f[R] module provides a simple in-memory cache.
+The \f[V]cache\f[R] module provides a simple in-memory cache.
 .SS Usage example
 .IP
 .nf
@@ -247,15 +247,15 @@ cache::put \[dq]key\[dq] \[dq]val\[dq]
 cache::get \[dq]key\[dq]
 \f[R]
 .fi
-.SS cache::get \f[C]<key>\f[R]
+.SS cache::get \f[V]<key>\f[R]
 .PP
 get the value of the key from the potion in-memory cache.
-.SS cache::put \f[C]<key>\f[R] \f[C]<value>\f[R]
+.SS cache::put \f[V]<key>\f[R] \f[V]<value>\f[R]
 .PP
 save the content of the specified key to the in-memory cache.
 .SS config
 .PP
-The \f[C]config\f[R] module allows you to read configuration file in
+The \f[V]config\f[R] module allows you to read configuration file in
 properties format
 .SS Usage example
 .IP
@@ -265,53 +265,53 @@ config::load configname ./config.properties
 echo $(config::get configname key)
 \f[R]
 .fi
-.SS config::load \f[C]<table>\f[R] \f[C]<file>\f[R]
+.SS config::load \f[V]<table>\f[R] \f[V]<file>\f[R]
 .PP
 read a configuration file passed as argument and save in the memory with
 specific table name.
 .SS Parameters
 .TP
-\f[B]\f[CB]table\f[B]\f[R]
+\f[V]table\f[R]
 a name to identify the config table where file will be load.
 .TP
-\f[B]\f[CB]file\f[B]\f[R]
+\f[V]file\f[R]
 path to a properties file to load.
-.SS config::get \f[C]<table>\f[R] \f[C]<key>\f[R] \f[C][default]\f[R]
+.SS config::get \f[V]<table>\f[R] \f[V]<key>\f[R] \f[V][default]\f[R]
 .PP
 outputs the specified configuration key in the table passed as argument.
 If key does not exists raise an error, unless default is passed as
 argument, in that case return default values.
 .SS Parameters
 .TP
-\f[B]\f[CB]table\f[B]\f[R]
+\f[V]table\f[R]
 the table name where to search key.
 .TP
-\f[B]\f[CB]key\f[B]\f[R]
+\f[V]key\f[R]
 the key to search in config table
 .TP
-\f[B]\f[CB]default\f[B]\f[R]
+\f[V]default\f[R]
 default value to output if value is not found.
 By default an error is raised.
-.SS config::iter \f[C]<table>\f[R] \f[C]<pattern>\f[R]
+.SS config::iter \f[V]<table>\f[R] \f[V]<pattern>\f[R]
 .PP
 iterate over a specific configuration using pattern passed as argument
 and outputs keys with match.
 .SS Parameters
 .TP
-\f[B]\f[CB]table\f[B]\f[R]
+\f[V]table\f[R]
 the table name to iterate
 .TP
-\f[B]\f[CB]pattern\f[B]\f[R]
+\f[V]pattern\f[R]
 a glob pattern to match in config keys.
 .SS curl
 .PP
 The curl module offers a way to access to HTTP resources easily.
-.SS curl::get \f[C]<url>\f[R]
+.SS curl::get \f[V]<url>\f[R]
 .PP
 get an object from url and output it to stdout
 .SS Parameters
 .TP
-\f[B]\f[CB]url\f[B]\f[R]
+\f[V]url\f[R]
 any URL valid for curl.
 .SS Usage example
 .IP
@@ -320,7 +320,7 @@ any URL valid for curl.
 curl::get http://example.com
 \f[R]
 .fi
-.SS curl::source \f[C]<url>\f[R]
+.SS curl::source \f[V]<url>\f[R]
 .PP
 sources a file from url
 .SS Usage example
@@ -332,9 +332,9 @@ curl::source http://mydomain.com/file.bash
 .fi
 .SS doc
 .PP
-The \f[C]doc\f[R] module provides functions to convert bash source code
+The \f[V]doc\f[R] module provides functions to convert bash source code
 to HTML, using markdown and specific CSS themes.
-.SS doc::read_blocks \f[C][api]\f[R]
+.SS doc::read_blocks \f[V][api]\f[R]
 .PP
 read and print blocks readed from stdin which match with specific api
 definition.
@@ -345,11 +345,11 @@ If api is provided, but is not declared in documentation, then item will
 be documentated too.
 .SS Parameters
 .TP
-\f[B]\f[CB]api\f[B]\f[R]
+\f[V]api\f[R]
 a string which identify the API to be documented.
 .SS Environment variables
 .TP
-\f[B]\f[CB]DOCSTRING\f[B]\f[R]
+\f[V]DOCSTRING\f[R]
 The docstring comment which identify a special comment used for
 documentation.
 By default `sha-space' (# ).
@@ -360,18 +360,18 @@ By default `sha-space' (# ).
 doc::read_blocks v1 < script
 \f[R]
 .fi
-.SS doc::output \f[C]<file>+\f[R]
+.SS doc::output \f[V]<file>+\f[R]
 .PP
 Create intermediate markdown code required to produce final HTML.
 .SS Environment variables
 .TP
-\f[B]\f[CB]TITLE\f[B]\f[R]
+\f[V]TITLE\f[R]
 The document title.
 .TP
-\f[B]\f[CB]AUTHOR\f[B]\f[R]
+\f[V]AUTHOR\f[R]
 The document author.
 .TP
-\f[B]\f[CB]DATE\f[B]\f[R]
+\f[V]DATE\f[R]
 The date of the produced document.
 .SS Usage example
 .IP
@@ -380,12 +380,12 @@ The date of the produced document.
 doc::output file
 \f[R]
 .fi
-.SS doc::generate \f[C]<file>+\f[R]
+.SS doc::generate \f[V]<file>+\f[R]
 .PP
 generate HTML for the specified files passed as arguments.
 .SS Environment variables
 .TP
-\f[B]\f[CB]OUTPUT\f[B]\f[R]
+\f[V]OUTPUT\f[R]
 filename of the output file or stdout if not provided.
 .SS Usage example
 .IP
@@ -396,7 +396,7 @@ doc::generate file
 .fi
 .SS err
 .PP
-The \f[C]err\f[R] module offers a way to stop potion execution with a
+The \f[V]err\f[R] module offers a way to stop potion execution with a
 traceback.
 .SS err::trace
 .PP
@@ -410,13 +410,13 @@ false || err::trace \[dq]Error because of false\[dq]
 .fi
 .SS main
 .PP
-The \f[C]main\f[R] module contain the specified potion body.
+The \f[V]main\f[R] module contain the specified potion body.
 .SS main::init
 .PP
 print nice potion logo and some custom messages at the beginning.
 .SS mutex
 .PP
-The \f[C]mutex\f[R] module provides a way to ensure critical region
+The \f[V]mutex\f[R] module provides a way to ensure critical region
 access across different processes.
 NOTE this module does not work fine on some filesystems, like NFS, AFS
 and others.
@@ -430,36 +430,36 @@ mutex::adquire mymutex
 mutex::release mymutex
 \f[R]
 .fi
-.SS mutex::adquire \f[C]<name>\f[R]
+.SS mutex::adquire \f[V]<name>\f[R]
 .PP
 create a mutex or wait until mutex removed
 .SS Parameters
 .TP
-\f[B]\f[CB]name\f[B]\f[R]
+\f[V]name\f[R]
 the name to identify this mutex
-.SS mutex::release \f[C]<name>\f[R]
+.SS mutex::release \f[V]<name>\f[R]
 .PP
 release mutex by name
 .SS Parameters
 .TP
-\f[B]\f[CB]name\f[B]\f[R]
+\f[V]name\f[R]
 the name to identify this mutex
-.SS mutex::run \f[C]<name>\f[R] \f[C]<command>\f[R] \f[C][args]\f[R]
+.SS mutex::run \f[V]<name>\f[R] \f[V]<command>\f[R] \f[V][args]\f[R]
 .PP
 run a command protected by mutex named as argument name.
 .SS Parameters
 .TP
-\f[B]\f[CB]name\f[B]\f[R]
+\f[V]name\f[R]
 the name to identify this mutex
 .TP
-\f[B]\f[CB]command\f[B]\f[R]
+\f[V]command\f[R]
 the command to run
 .TP
-\f[B]\f[CB]args\f[B]\f[R]
+\f[V]args\f[R]
 optional arguments to the command.
 .SS os
 .PP
-The \f[C]os\f[R] module provides specified functions to guess the
+The \f[V]os\f[R] module provides specified functions to guess the
 operating system related variables.
 .SS os::family
 .PP
@@ -470,98 +470,109 @@ print the operating system provider (formerly distribution).
 .SS os::release
 .PP
 print to stdout the properly release of operating system provider.
-.SS os::path \f[C]<file>\f[R]
+.SS os::path \f[V]<file>\f[R]
 .PP
 return the path of a file in PATH
 .SS Parameters
 .TP
-\f[B]\f[CB]file\f[B]\f[R]
+\f[V]file\f[R]
 the file name to find the full path.
 .SS Environment variables
 .TP
-\f[B]\f[CB]PATH\f[B]\f[R]
+\f[V]PATH\f[R]
 contains the path to search file
 .SS os.ubuntu
 .PP
-The \f[C]os.ubuntu\f[R] module extends \f[C]os\f[R] module adding
+The \f[V]os.ubuntu\f[R] module extends \f[V]os\f[R] module adding
 specific functions for Ubuntu based systems.
 .SS os::relase::ubuntu
 .PP
 return specific relese for ubuntu operating systems.
 .SS out
 .PP
-The \f[C]out\f[R] module provides functions to output messages in stderr
+The \f[V]out\f[R] module provides functions to output messages in stderr
 or stdout.
-.SS out::log \f[C]<message>\f[R] \f[C][message_type]\f[R]
+.SS out::log \f[V]<message>\f[R] \f[V][message_type]\f[R]
 .PP
 print to stdout a log line with specified message and prefixed by date
 and message_type.
 .SS Environment variables
 .TP
-\f[B]\f[CB]DATE_FORMAT\f[B]\f[R]
+\f[V]DATE_FORMAT\f[R]
 defines the format for the datetime, in regular date(1) format.
 .TP
-\f[B]\f[CB]COLOR_DATE\f[B]\f[R]
+\f[V]COLOR_DATE\f[R]
 defines the color to use (if available) to print the date.
 .TP
-\f[B]\f[CB]COLOR_MESSAGE\f[B]\f[R]
+\f[V]COLOR_MESSAGE\f[R]
 defines the color to use to print the message.
 .TP
-\f[B]\f[CB]COLOR_NONE\f[B]\f[R]
+\f[V]COLOR_NONE\f[R]
 defines the sequence to reset defined color.
 .TP
-\f[B]\f[CB]QUIET\f[B]\f[R]
+\f[V]QUIET\f[R]
 if true do not show any messages
-.SS out::info \f[C]<message>\f[R]
+.SS out::info \f[V]<message>\f[R]
 .PP
 print an informational message in stdout.
 .SS Environment variables
 .TP
-\f[B]\f[CB]COLOR_INFO\f[B]\f[R]
+\f[V]COLOR_INFO\f[R]
 defines the color to be used in informational messages.
-.SS out::fail \f[C]<message>\f[R]
+.SS out::fail \f[V]<message>\f[R]
 .PP
 print an informational message in stdout.
 .PP
 print an error message in stderr.
 .SS Environment variables
 .TP
-\f[B]\f[CB]COLOR_FAIL\f[B]\f[R]
+\f[V]COLOR_FAIL\f[R]
 defines the color to be used in this kind of messages.
 E: if set exit program with error code defined in the variable
-.SS out::warn \f[C]<message>\f[R]
+.SS out::warn \f[V]<message>\f[R]
 .PP
 print an informational message in stdout.
 .PP
 print a warning message in stderr.
 .SS Environment variables
 .TP
-\f[B]\f[CB]COLOR_WARN\f[B]\f[R]
+\f[V]COLOR_WARN\f[R]
 defines the color to be used in this kind of messages.
-.SS out::user \f[C]<message>\f[R]
+.SS out::user \f[V]<message>\f[R]
 .PP
 print an informational message in stdout.
 .PP
 print a user defined message in stdout
 .SS Environment variables
 .TP
-\f[B]\f[CB]COLOR_USER\f[B]\f[R]
+\f[V]COLOR_USER\f[R]
 defines the color to be used in this kind of messages.
+.SS proc
+.PP
+The \f[V]proc\f[R] module provides a number of functions to manage
+parallel processes
+.SS proc::waitn \f[V][number]\f[R]
+.PP
+wait for n procs to finished, or for everyone if no number specify
+.SS Parameters
+.TP
+\f[V]number\f[R]
+the number of proccess to wait for or none if wait for everyone.
 .SS std
 .PP
-The \f[C]std\f[R] module contains a numer of standard functions usefull
+The \f[V]std\f[R] module contains a numer of standard functions usefull
 to progamming in bash.
 .SS std::quit
 .PP
 perform an exit clean of the running program.
-.SS std::add_quit_handler \f[C]<func_name>\f[R]
+.SS std::add_quit_handler \f[V]<func_name>\f[R]
 .PP
 Add func_name as handler to execute before quit the application.
 When the application finished, then the functions registered as quit
 handlers will be executed in the same order than they were registered.
 .SS Parameters
 .TP
-\f[B]\f[CB]func_name\f[B]\f[R]
+\f[V]func_name\f[R]
 the name of the function to be registered.
 .SS Usage example
 .IP
@@ -571,16 +582,16 @@ somefunc () { echo \[dq]exiting\[dq]; }
 std::add_quit_handler somefunc
 \f[R]
 .fi
-.SS std::hmac \f[C]<text>\f[R]
+.SS std::hmac \f[V]<text>\f[R]
 .PP
 outputs the calculated HMAC using SHA1 for the text passed as argument.
 .SS Parameters
 .TP
-\f[B]\f[CB]text\f[B]\f[R]
+\f[V]text\f[R]
 a plain text to be hashed.
 .SS Environment variables
 .TP
-\f[B]\f[CB]ALGO\f[B]\f[R]
+\f[V]ALGO\f[R]
 set the algorithm to use for calculate HMAC.
 Valid values are: sha1, md5, sha256, sha512.
 The proper helper tool must be installed on the system.
@@ -592,25 +603,25 @@ std::hmac \[dq]hello world\[dq]
 ALGO=md5 std::hmac \[dq]hello world\[dq]
 \f[R]
 .fi
-.SS std::mute \f[C]<command>\f[R]
+.SS std::mute \f[V]<command>\f[R]
 .PP
-mute outputs, including \f[C]stderr\f[R] when running a command, alias
+mute outputs, including \f[V]stderr\f[R] when running a command, alias
 or function
 .SS Parameters
 .TP
-\f[B]\f[CB]command\f[B]\f[R]
+\f[V]command\f[R]
 the command to run muted.
-.SS std::strin \f[C]<str1>\f[R] \f[C]<str2>\f[R]
+.SS std::strin \f[V]<str1>\f[R] \f[V]<str2>\f[R]
 .PP
-return true if \f[C]str2\f[R] is into \f[C]str1\f[R], or false
+return true if \f[V]str2\f[R] is into \f[V]str1\f[R], or false
 otherwise.
 .SS Parameters
 .TP
-\f[B]\f[CB]str1\f[B]\f[R]
-the string which could be contain \f[C]str2\f[R] and wants to evaluate
+\f[V]str1\f[R]
+the string which could be contain \f[V]str2\f[R] and wants to evaluate
 .TP
-\f[B]\f[CB]str2\f[B]\f[R]
-the string to find into \f[C]str1\f[R]
+\f[V]str2\f[R]
+the string to find into \f[V]str1\f[R]
 .SS Usage example
 .IP
 .nf
@@ -618,11 +629,7 @@ the string to find into \f[C]str1\f[R]
 std::strin \[dq]somelargestring\[dq] \[dq]some\[dq]
 \f[R]
 .fi
-.SS std::sleep \f[C]<seconds>\f[R]
-.PP
-sleep for specified number of seconds.
-This function is pure-bash, so not need sleep(1) command.
-.SS std::func \f[C]<func_name>\f[R]
+.SS std::func \f[V]<func_name>\f[R]
 .PP
 return true if function name passed as argument is defined, or false
 otherwise.
@@ -634,17 +641,17 @@ outputs the hardware architecture of the current host.
 outputs the UNIX timestamp
 .SS Environment variables
 .TP
-\f[B]\f[CB]TZ\f[B]\f[R]
+\f[V]TZ\f[R]
 the timezone to use to print the timestamp, by default get the timezone
 from the system.
-.SS std::parse \f[C]<arg_string>\f[R]
+.SS std::parse \f[V]<arg_string>\f[R]
 .PP
 parse an argument string in the form key=value and promote this
 variables to environment.
-The key \f[C]name\f[R] is mandatory.
-If the first parameter has no key, key \f[C]name\f[R] is using by
+The key \f[V]name\f[R] is mandatory.
+If the first parameter has no key, key \f[V]name\f[R] is using by
 default.
-The \f[C]name\f[R] parameter must be the first one.
+The \f[V]name\f[R] parameter must be the first one.
 .SS Usage example
 .IP
 .nf
@@ -653,37 +660,37 @@ std::parse \[dq]name=Jhon\[dq] \[dq]age=90\[dq]
 echo \[dq]$name has $age years old\[dq]
 \f[R]
 .fi
-.SS std::run \f[C]<command>\f[R]
+.SS std::run \f[V]<command>\f[R]
 .PP
 Run command passed as argument if $PRETEND is not set to true
 .SS Environment variables
 .TP
-\f[B]\f[CB]PRETEND\f[B]\f[R]
+\f[V]PRETEND\f[R]
 if true do nothing.
-.SS std::installed \f[C]<command>\f[R]
+.SS std::installed \f[V]<command>\f[R]
 .PP
 return true if command is installed in path
-.SS std::is_dir_empty \f[C]<dir>\f[R]
+.SS std::is_dir_empty \f[V]<dir>\f[R]
 .PP
 return true if dir is empty
-.SS std::sort \f[C]<array>\f[R]
+.SS std::sort \f[V]<array>\f[R]
 .PP
 sort an array using qsort in pure bash (not very efficient) and return
-the output to an special variable called \f[C]sort_ret\f[R].
+the output to an special variable called \f[V]sort_ret\f[R].
 .SS Environment variables
 .TP
-\f[B]\f[CB]sort_ret\f[B]\f[R]
+\f[V]sort_ret\f[R]
 will contain the sorted array
-.SS str2array \f[C]<string>\f[R] \f[C][separator]\f[R]
+.SS str2array \f[V]<string>\f[R] \f[V][separator]\f[R]
 .PP
 create a new array with the contents of the string, using separator
 passed as argument.
 .SS Parameters
 .TP
-\f[B]\f[CB]string\f[B]\f[R]
+\f[V]string\f[R]
 the string to covert to array
 .TP
-\f[B]\f[CB]separator\f[B]\f[R]
+\f[V]separator\f[R]
 the character to use as separator, by default use comma.
 .SS Usage example
 .IP
@@ -695,14 +702,14 @@ echo \[dq]${str2array_ret[\[at]]}\[dq]
 .fi
 .SS term
 .PP
-The \f[C]term\f[R] module provides functions related with terminal
+The \f[V]term\f[R] module provides functions related with terminal
 configuration.
 This module also define some useful color variables to be used in
-\f[C]out\f[R] module.
+\f[V]out\f[R] module.
 .SS term::attached
 .PP
 return true if output is a terminal, false otherwise
-.SS term::tcap \f[C]<capability>\f[R]
+.SS term::tcap \f[V]<capability>\f[R]
 .PP
 check if some capabilty is enabled in terminal
 .SS term::init
@@ -711,17 +718,17 @@ initialize terminal, in theory you never need to call this function,
 unless you want to change your terminal online.
 .SS tmp
 .PP
-The \f[C]tmp\f[R] module provides functions to create and destroy
+The \f[V]tmp\f[R] module provides functions to create and destroy
 temporary directories.
 Even if you don\[cq]t remove the temporary file or directoy explicitely,
 the directory or file will be deleted when program exits.
 .SS Environment variables
 .TP
-\f[B]\f[CB]TMPDIR\f[B]\f[R]
+\f[V]TMPDIR\f[R]
 a subdirectory into /tmp to use to create temporary files or
 directories.
 .TP
-\f[B]\f[CB]BLIB_TMPDIR\f[B]\f[R]
+\f[V]BLIB_TMPDIR\f[R]
 a full path to temporary directory to use to store files or other
 directories.
 .SS Usage example
@@ -739,7 +746,7 @@ tmp::destroy
 echo $(tmp::file)
 \f[R]
 .fi
-.SS tmp::create \f[C]<dirname>\f[R]
+.SS tmp::create \f[V]<dirname>\f[R]
 .PP
 create temporary directory and move working directory into it
 .SS tmp::exit
@@ -748,21 +755,21 @@ exit the temporary directory, but not remove it.
 .SS tmp::destroy
 .PP
 move to root directoy and remove temporary directory
-.SS tmp::exists \f[C]<name>\f[R]
+.SS tmp::exists \f[V]<name>\f[R]
 .PP
 return true if the specified file name or directory name is a temporary
 file or directory.
 .SS tmp::file
 .PP
 print to stdout the name of unique temporary file.
-.SS tmp::touch \f[C]<name>\f[R]
+.SS tmp::touch \f[V]<name>\f[R]
 .PP
 create a temporary file with specified name in temporary directory.
 .SS version
 .PP
-The \f[C]version\f[R] module provides a number of functions to handle
+The \f[V]version\f[R] module provides a number of functions to handle
 version numbers.
-.SS version::cmp \f[C]<version1>\f[R] \f[C]<version2>\f[R]
+.SS version::cmp \f[V]<version1>\f[R] \f[V]<version2>\f[R]
 .PP
 compare two version numbers, return -1 (255) if version1 is greater than
 version2, return 1 if version2 is greater than version1 and 0 if both

@@ -85,6 +85,9 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
         float: left;
         background: #3E4042;
         color: #dadada;
+        overflow-y: scroll;
+        position: fixed;
+        max-height: 90vh;
       }
       body {
       font-family: "Work sans", Helvetica, Arial, sans-serif;
@@ -100,6 +103,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
       #toc ul { padding:0; margin:0; }
       #toc > ul > li { margin-bottom: 2em; }
+      #toc > ul > li > a { font-weight: bold; color: #fff; }
+      #toc > ul > li > a:hover { text-decoration: underline; }
       #toc li { list-style: none; padding-left:0; }
       #toc ul ul { padding-left: 1.25em; }
       #toc code { display:none; }
@@ -127,10 +132,10 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
       }
 
       pre.sourceCode {
-        border-radius: 0;
+        border-radius: 5px;
         border: 0;
-        background: #ededed;
-        padding:10px 5px 10px 5px;
+        background: #dfdfdf;
+        padding:10px;
         width: auto;
         font-size: 90%;
       }
@@ -194,6 +199,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     .module dd:after {
       display: block;
       content: "";
+      clear: both;
     }
     .module dt:after {
       content: ":";
@@ -222,122 +228,211 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <body class="book toc2 toc-left">
 <div id="toc" class="toc2">
 <ul>
-<li><a href="#bashdoc">bashdoc</a>
+<li><a href="#bashdoc" id="toc-bashdoc">bashdoc</a>
 <ul>
-<li><a href="#documentation-syntax">Documentation syntax</a></li>
-<li><a href="#examples">Examples</a></li>
-<li><a href="#using-api-name">Using API name</a></li>
-<li><a href="#using-custom-stylesheet">Using custom stylesheet</a></li>
+<li><a href="#documentation-syntax"
+id="toc-documentation-syntax">Documentation syntax</a></li>
+<li><a href="#examples" id="toc-examples">Examples</a></li>
+<li><a href="#using-api-name" id="toc-using-api-name">Using API
+name</a></li>
+<li><a href="#using-custom-stylesheet"
+id="toc-using-custom-stylesheet">Using custom stylesheet</a></li>
 </ul></li>
-<li><a href="#api-reference">API Reference</a>
+<li><a href="#api-reference" id="toc-api-reference">API Reference</a>
 <ul>
-<li><a href="#arg">arg</a>
+<li><a href="#arg" id="toc-arg">arg</a>
 <ul>
-<li><a href="#argopt-action-short-long-handler-help">arg::opt <code>&lt;action&gt;</code> <code>&lt;short&gt;</code> <code>&lt;long&gt;</code> <code>&lt;handler&gt;</code> <code>[help]</code></a></li>
-<li><a href="#argparseoptfail-cmdline">arg::parse::opt::fail <code>&lt;cmdline&gt;</code></a></li>
-<li><a href="#argparseoptlong-action-option-option-argument">arg::parse::opt::long <code>&lt;action&gt;</code> <code>&lt;option&gt;</code> <code>[option</code> <code>argument]</code></a></li>
-<li><a href="#argparseoptshort-action-option-option-argument">arg::parse::opt::short <code>&lt;action&gt;</code> <code>&lt;option&gt;</code> <code>[option</code> <code>argument]</code></a></li>
-<li><a href="#argaction-action-handler-help_message">arg::action <code>&lt;action&gt;</code> <code>&lt;handler&gt;</code> <code>[help_message]</code></a></li>
-<li><a href="#argusageaction-action">arg::usage::action <code>&lt;action&gt;</code></a></li>
-<li><a href="#argmainhelp-text">arg:::main::help <code>&lt;text&gt;</code></a></li>
-<li><a href="#argmainaction-fun">arg:::main::action <code>&lt;fun&gt;</code></a></li>
-<li><a href="#argusage">arg::usage</a></li>
-<li><a href="#argparseaction-action-arguments">arg::parse::action <code>&lt;action&gt;</code> <code>[arguments]</code></a></li>
-<li><a href="#argparsearg-action-arguments">arg::parse::arg <code>&lt;action&gt;</code> <code>[arguments]</code></a></li>
-<li><a href="#argparse-arguments">arg::parse <code>[arguments]</code></a></li>
-<li><a href="#argparam-action-parameter_name-help_str">arg::param <code>&lt;action&gt;</code> <code>&lt;parameter_name&gt;</code> <code>[help_str]</code></a></li>
+<li><a href="#argopt-action-short-long-handler-help"
+id="toc-argopt-action-short-long-handler-help">arg::opt
+<code>&lt;action&gt;</code> <code>&lt;short&gt;</code>
+<code>&lt;long&gt;</code> <code>&lt;handler&gt;</code>
+<code>[help]</code></a></li>
+<li><a href="#argparseoptfail-cmdline"
+id="toc-argparseoptfail-cmdline">arg::parse::opt::fail
+<code>&lt;cmdline&gt;</code></a></li>
+<li><a href="#argparseoptlong-action-option-option-argument"
+id="toc-argparseoptlong-action-option-option-argument">arg::parse::opt::long
+<code>&lt;action&gt;</code> <code>&lt;option&gt;</code>
+<code>[option</code> <code>argument]</code></a></li>
+<li><a href="#argparseoptshort-action-option-option-argument"
+id="toc-argparseoptshort-action-option-option-argument">arg::parse::opt::short
+<code>&lt;action&gt;</code> <code>&lt;option&gt;</code>
+<code>[option</code> <code>argument]</code></a></li>
+<li><a href="#argaction-action-handler-help_message"
+id="toc-argaction-action-handler-help_message">arg::action
+<code>&lt;action&gt;</code> <code>&lt;handler&gt;</code>
+<code>[help_message]</code></a></li>
+<li><a href="#argusageaction-action"
+id="toc-argusageaction-action">arg::usage::action
+<code>&lt;action&gt;</code></a></li>
+<li><a href="#argmainhelp-text"
+id="toc-argmainhelp-text">arg:::main::help
+<code>&lt;text&gt;</code></a></li>
+<li><a href="#argmainaction-fun"
+id="toc-argmainaction-fun">arg:::main::action
+<code>&lt;fun&gt;</code></a></li>
+<li><a href="#argusage" id="toc-argusage">arg::usage</a></li>
+<li><a href="#argparseaction-action-arguments"
+id="toc-argparseaction-action-arguments">arg::parse::action
+<code>&lt;action&gt;</code> <code>[arguments]</code></a></li>
+<li><a href="#argparsearg-action-arguments"
+id="toc-argparsearg-action-arguments">arg::parse::arg
+<code>&lt;action&gt;</code> <code>[arguments]</code></a></li>
+<li><a href="#argparse-arguments" id="toc-argparse-arguments">arg::parse
+<code>[arguments]</code></a></li>
+<li><a href="#argparam-action-parameter_name-help_str"
+id="toc-argparam-action-parameter_name-help_str">arg::param
+<code>&lt;action&gt;</code> <code>&lt;parameter_name&gt;</code>
+<code>[help_str]</code></a></li>
 </ul></li>
-<li><a href="#cache">cache</a>
+<li><a href="#cache" id="toc-cache">cache</a>
 <ul>
-<li><a href="#cacheget-key">cache::get <code>&lt;key&gt;</code></a></li>
-<li><a href="#cacheput-key-value">cache::put <code>&lt;key&gt;</code> <code>&lt;value&gt;</code></a></li>
+<li><a href="#cacheget-key" id="toc-cacheget-key">cache::get
+<code>&lt;key&gt;</code></a></li>
+<li><a href="#cacheput-key-value" id="toc-cacheput-key-value">cache::put
+<code>&lt;key&gt;</code> <code>&lt;value&gt;</code></a></li>
 </ul></li>
-<li><a href="#config">config</a>
+<li><a href="#config" id="toc-config">config</a>
 <ul>
-<li><a href="#configload-table-file">config::load <code>&lt;table&gt;</code> <code>&lt;file&gt;</code></a></li>
-<li><a href="#configget-table-key-default">config::get <code>&lt;table&gt;</code> <code>&lt;key&gt;</code> <code>[default]</code></a></li>
-<li><a href="#configiter-table-pattern">config::iter <code>&lt;table&gt;</code> <code>&lt;pattern&gt;</code></a></li>
+<li><a href="#configload-table-file"
+id="toc-configload-table-file">config::load <code>&lt;table&gt;</code>
+<code>&lt;file&gt;</code></a></li>
+<li><a href="#configget-table-key-default"
+id="toc-configget-table-key-default">config::get
+<code>&lt;table&gt;</code> <code>&lt;key&gt;</code>
+<code>[default]</code></a></li>
+<li><a href="#configiter-table-pattern"
+id="toc-configiter-table-pattern">config::iter
+<code>&lt;table&gt;</code> <code>&lt;pattern&gt;</code></a></li>
 </ul></li>
-<li><a href="#curl">curl</a>
+<li><a href="#curl" id="toc-curl">curl</a>
 <ul>
-<li><a href="#curlget-url">curl::get <code>&lt;url&gt;</code></a></li>
-<li><a href="#curlsource-url">curl::source <code>&lt;url&gt;</code></a></li>
+<li><a href="#curlget-url" id="toc-curlget-url">curl::get
+<code>&lt;url&gt;</code></a></li>
+<li><a href="#curlsource-url" id="toc-curlsource-url">curl::source
+<code>&lt;url&gt;</code></a></li>
 </ul></li>
-<li><a href="#doc">doc</a>
+<li><a href="#doc" id="toc-doc">doc</a>
 <ul>
-<li><a href="#docread_blocks-api">doc::read_blocks <code>[api]</code></a></li>
-<li><a href="#docoutput-file">doc::output <code>&lt;file&gt;+</code></a></li>
-<li><a href="#docgenerate-file">doc::generate <code>&lt;file&gt;+</code></a></li>
+<li><a href="#docread_blocks-api"
+id="toc-docread_blocks-api">doc::read_blocks <code>[api]</code></a></li>
+<li><a href="#docoutput-file" id="toc-docoutput-file">doc::output
+<code>&lt;file&gt;+</code></a></li>
+<li><a href="#docgenerate-file" id="toc-docgenerate-file">doc::generate
+<code>&lt;file&gt;+</code></a></li>
 </ul></li>
-<li><a href="#err">err</a>
+<li><a href="#err" id="toc-err">err</a>
 <ul>
-<li><a href="#errtrace">err::trace</a></li>
+<li><a href="#errtrace" id="toc-errtrace">err::trace</a></li>
 </ul></li>
-<li><a href="#main">main</a>
+<li><a href="#main" id="toc-main">main</a>
 <ul>
-<li><a href="#maininit">main::init</a></li>
+<li><a href="#maininit" id="toc-maininit">main::init</a></li>
 </ul></li>
-<li><a href="#mutex">mutex</a>
+<li><a href="#mutex" id="toc-mutex">mutex</a>
 <ul>
-<li><a href="#mutexadquire-name">mutex::adquire <code>&lt;name&gt;</code></a></li>
-<li><a href="#mutexrelease-name">mutex::release <code>&lt;name&gt;</code></a></li>
-<li><a href="#mutexrun-name-command-args">mutex::run <code>&lt;name&gt;</code> <code>&lt;command&gt;</code> <code>[args]</code></a></li>
+<li><a href="#mutexadquire-name"
+id="toc-mutexadquire-name">mutex::adquire
+<code>&lt;name&gt;</code></a></li>
+<li><a href="#mutexrelease-name"
+id="toc-mutexrelease-name">mutex::release
+<code>&lt;name&gt;</code></a></li>
+<li><a href="#mutexrun-name-command-args"
+id="toc-mutexrun-name-command-args">mutex::run <code>&lt;name&gt;</code>
+<code>&lt;command&gt;</code> <code>[args]</code></a></li>
 </ul></li>
-<li><a href="#os">os</a>
+<li><a href="#os" id="toc-os">os</a>
 <ul>
-<li><a href="#osfamily">os::family</a></li>
-<li><a href="#osprovider">os::provider</a></li>
-<li><a href="#osrelease">os::release</a></li>
-<li><a href="#ospath-file">os::path <code>&lt;file&gt;</code></a></li>
+<li><a href="#osfamily" id="toc-osfamily">os::family</a></li>
+<li><a href="#osprovider" id="toc-osprovider">os::provider</a></li>
+<li><a href="#osrelease" id="toc-osrelease">os::release</a></li>
+<li><a href="#ospath-file" id="toc-ospath-file">os::path
+<code>&lt;file&gt;</code></a></li>
 </ul></li>
-<li><a href="#os.ubuntu">os.ubuntu</a>
+<li><a href="#os.ubuntu" id="toc-os.ubuntu">os.ubuntu</a>
 <ul>
-<li><a href="#osrelaseubuntu">os::relase::ubuntu</a></li>
+<li><a href="#osrelaseubuntu"
+id="toc-osrelaseubuntu">os::relase::ubuntu</a></li>
 </ul></li>
-<li><a href="#out">out</a>
+<li><a href="#out" id="toc-out">out</a>
 <ul>
-<li><a href="#outlog-message-message_type">out::log <code>&lt;message&gt;</code> <code>[message_type]</code></a></li>
-<li><a href="#outinfo-message">out::info <code>&lt;message&gt;</code></a></li>
-<li><a href="#outfail-message">out::fail <code>&lt;message&gt;</code></a></li>
-<li><a href="#outwarn-message">out::warn <code>&lt;message&gt;</code></a></li>
-<li><a href="#outuser-message">out::user <code>&lt;message&gt;</code></a></li>
+<li><a href="#outlog-message-message_type"
+id="toc-outlog-message-message_type">out::log
+<code>&lt;message&gt;</code> <code>[message_type]</code></a></li>
+<li><a href="#outinfo-message" id="toc-outinfo-message">out::info
+<code>&lt;message&gt;</code></a></li>
+<li><a href="#outfail-message" id="toc-outfail-message">out::fail
+<code>&lt;message&gt;</code></a></li>
+<li><a href="#outwarn-message" id="toc-outwarn-message">out::warn
+<code>&lt;message&gt;</code></a></li>
+<li><a href="#outuser-message" id="toc-outuser-message">out::user
+<code>&lt;message&gt;</code></a></li>
 </ul></li>
-<li><a href="#std">std</a>
+<li><a href="#proc" id="toc-proc">proc</a>
 <ul>
-<li><a href="#stdquit">std::quit</a></li>
-<li><a href="#stdadd_quit_handler-func_name">std::add_quit_handler <code>&lt;func_name&gt;</code></a></li>
-<li><a href="#stdhmac-text">std::hmac <code>&lt;text&gt;</code></a></li>
-<li><a href="#stdmute-command">std::mute <code>&lt;command&gt;</code></a></li>
-<li><a href="#stdstrin-str1-str2">std::strin <code>&lt;str1&gt;</code> <code>&lt;str2&gt;</code></a></li>
-<li><a href="#stdsleep-seconds">std::sleep <code>&lt;seconds&gt;</code></a></li>
-<li><a href="#stdfunc-func_name">std::func <code>&lt;func_name&gt;</code></a></li>
-<li><a href="#stdarch">std::arch</a></li>
-<li><a href="#stdtimestamp">std::timestamp</a></li>
-<li><a href="#stdparse-arg_string">std::parse <code>&lt;arg_string&gt;</code></a></li>
-<li><a href="#stdrun-command">std::run <code>&lt;command&gt;</code></a></li>
-<li><a href="#stdinstalled-command">std::installed <code>&lt;command&gt;</code></a></li>
-<li><a href="#stdis_dir_empty-dir">std::is_dir_empty <code>&lt;dir&gt;</code></a></li>
-<li><a href="#stdsort-array">std::sort <code>&lt;array&gt;</code></a></li>
-<li><a href="#str2array-string-separator">str2array <code>&lt;string&gt;</code> <code>[separator]</code></a></li>
+<li><a href="#procwaitn-number" id="toc-procwaitn-number">proc::waitn
+<code>[number]</code></a></li>
 </ul></li>
-<li><a href="#term">term</a>
+<li><a href="#std" id="toc-std">std</a>
 <ul>
-<li><a href="#termattached">term::attached</a></li>
-<li><a href="#termtcap-capability">term::tcap <code>&lt;capability&gt;</code></a></li>
-<li><a href="#terminit">term::init</a></li>
+<li><a href="#stdquit" id="toc-stdquit">std::quit</a></li>
+<li><a href="#stdadd_quit_handler-func_name"
+id="toc-stdadd_quit_handler-func_name">std::add_quit_handler
+<code>&lt;func_name&gt;</code></a></li>
+<li><a href="#stdhmac-text" id="toc-stdhmac-text">std::hmac
+<code>&lt;text&gt;</code></a></li>
+<li><a href="#stdmute-command" id="toc-stdmute-command">std::mute
+<code>&lt;command&gt;</code></a></li>
+<li><a href="#stdstrin-str1-str2" id="toc-stdstrin-str1-str2">std::strin
+<code>&lt;str1&gt;</code> <code>&lt;str2&gt;</code></a></li>
+<li><a href="#stdfunc-func_name" id="toc-stdfunc-func_name">std::func
+<code>&lt;func_name&gt;</code></a></li>
+<li><a href="#stdarch" id="toc-stdarch">std::arch</a></li>
+<li><a href="#stdtimestamp"
+id="toc-stdtimestamp">std::timestamp</a></li>
+<li><a href="#stdparse-arg_string"
+id="toc-stdparse-arg_string">std::parse
+<code>&lt;arg_string&gt;</code></a></li>
+<li><a href="#stdrun-command" id="toc-stdrun-command">std::run
+<code>&lt;command&gt;</code></a></li>
+<li><a href="#stdinstalled-command"
+id="toc-stdinstalled-command">std::installed
+<code>&lt;command&gt;</code></a></li>
+<li><a href="#stdis_dir_empty-dir"
+id="toc-stdis_dir_empty-dir">std::is_dir_empty
+<code>&lt;dir&gt;</code></a></li>
+<li><a href="#stdsort-array" id="toc-stdsort-array">std::sort
+<code>&lt;array&gt;</code></a></li>
+<li><a href="#str2array-string-separator"
+id="toc-str2array-string-separator">str2array
+<code>&lt;string&gt;</code> <code>[separator]</code></a></li>
 </ul></li>
-<li><a href="#tmp">tmp</a>
+<li><a href="#term" id="toc-term">term</a>
 <ul>
-<li><a href="#tmpcreate-dirname">tmp::create <code>&lt;dirname&gt;</code></a></li>
-<li><a href="#tmpexit">tmp::exit</a></li>
-<li><a href="#tmpdestroy">tmp::destroy</a></li>
-<li><a href="#tmpexists-name">tmp::exists <code>&lt;name&gt;</code></a></li>
-<li><a href="#tmpfile">tmp::file</a></li>
-<li><a href="#tmptouch-name">tmp::touch <code>&lt;name&gt;</code></a></li>
+<li><a href="#termattached"
+id="toc-termattached">term::attached</a></li>
+<li><a href="#termtcap-capability"
+id="toc-termtcap-capability">term::tcap
+<code>&lt;capability&gt;</code></a></li>
+<li><a href="#terminit" id="toc-terminit">term::init</a></li>
 </ul></li>
-<li><a href="#version">version</a>
+<li><a href="#tmp" id="toc-tmp">tmp</a>
 <ul>
-<li><a href="#versioncmp-version1-version2">version::cmp <code>&lt;version1&gt;</code> <code>&lt;version2&gt;</code></a></li>
+<li><a href="#tmpcreate-dirname" id="toc-tmpcreate-dirname">tmp::create
+<code>&lt;dirname&gt;</code></a></li>
+<li><a href="#tmpexit" id="toc-tmpexit">tmp::exit</a></li>
+<li><a href="#tmpdestroy" id="toc-tmpdestroy">tmp::destroy</a></li>
+<li><a href="#tmpexists-name" id="toc-tmpexists-name">tmp::exists
+<code>&lt;name&gt;</code></a></li>
+<li><a href="#tmpfile" id="toc-tmpfile">tmp::file</a></li>
+<li><a href="#tmptouch-name" id="toc-tmptouch-name">tmp::touch
+<code>&lt;name&gt;</code></a></li>
+</ul></li>
+<li><a href="#version" id="toc-version">version</a>
+<ul>
+<li><a href="#versioncmp-version1-version2"
+id="toc-versioncmp-version1-version2">version::cmp
+<code>&lt;version1&gt;</code> <code>&lt;version2&gt;</code></a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -351,35 +446,48 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>Documentation generator for bash applications.</p>
 <section id="documentation-syntax" class="level2">
 <h2>Documentation syntax</h2>
-<p>Bashdoc will evaluate some special comments into the source code. The comments are prefixed with the following doc strings:</p>
+<p>Bashdoc will evaluate some special comments into the source code. The
+comments are prefixed with the following doc strings:</p>
 <dl>
 <dt><code># mod: modname</code></dt>
-<dd>The module name itself.
+<dd>
+The module name itself.
 </dd>
 <dt><code># fun: funsignature</code></dt>
-<dd>The function signature, usually include parameters here, but not describe them.
+<dd>
+The function signature, usually include parameters here, but not
+describe them.
 </dd>
 <dt><code># txt:</code></dt>
-<dd>Textual description of the previous declarated section (module or function).
+<dd>
+Textual description of the previous declarated section (module or
+function).
 </dd>
 <dt><code># opt: param: ...</code></dt>
-<dd>Describe an option or parameter to a function.
+<dd>
+Describe an option or parameter to a function.
 </dd>
 <dt><code># env: VAR: ...</code></dt>
-<dd>Describe a environment variable called <code>$VAR</code>.
+<dd>
+Describe a environment variable called <code>$VAR</code>.
 </dd>
 <dt><code># use: ...</code></dt>
-<dd>Provides an example of use of the function or module.
+<dd>
+Provides an example of use of the function or module.
 </dd>
 <dt><code># api: ...</code></dt>
-<dd>Set the API name for this element. The API name could be used to filter what functions or modules will be documented in final output.
+<dd>
+Set the API name for this element. The API name could be used to filter
+what functions or modules will be documented in final output.
 </dd>
 </dl>
 </section>
 <section id="examples" class="level2">
 <h2>Examples</h2>
-<p>Let’s suppose the following content of the file <code>script.bash</code></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mod: example</span></span>
+<p>Let’s suppose the following content of the file
+<code>script.bash</code></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mod: example</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># txt: this module is an example for documentation.</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#      The txt sections as also opt and env ones can</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#      be multiline if lines are kept vertical aligned.</span></span>
@@ -395,28 +503,47 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> <span class="st">&quot;</span><span class="va">$(($1</span> <span class="op">+</span> <span class="va">$2))</span><span class="st">&quot;</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div>
 <p>Now you can generate the HTML with the command:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bashdoc</span> <span class="at">-o</span> doc.html script.bash</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bashdoc</span> <span class="at">-o</span> doc.html script.bash</span></code></pre></div>
 </section>
 <section id="using-api-name" class="level2">
 <h2>Using API name</h2>
-<p>Le’ts suppose the previous example code, and we need to add more functions there:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fun: internal_sum num1</span></span>
+<p>Le’ts suppose the previous example code, and we need to add more
+functions there:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fun: internal_sum num1</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># txt: return zero (yes, it&#39;s not very usefull function)</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># api: internal</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">internal_sum ()</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">{</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> 0</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div>
-<p>If we generate the HTML in the same way that we do previously, the result HTML will contain two documented functions: <code>sum</code> and <code>internal_sum</code>, but we don’t want the second one in the documentation. Of course we can remove the doc strings from there, but then we loose the documentation in the code too. To avoid this problem we can use the API name. If you look carefully, you can see that the api name in the first function is <code>sum</code>, and in the second one is <code>internal</code>. If we run bashdoc as following:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bashdoc</span> <span class="at">-A</span> sum <span class="at">-o</span> doc.html script.bash</span></code></pre></div>
-<p>We will create documentation only for functions tagged as API <em>sum</em>. Please note that if you force a specific API tag, then functions or modules without declared API will be not documented.</p>
+<p>If we generate the HTML in the same way that we do previously, the
+result HTML will contain two documented functions: <code>sum</code> and
+<code>internal_sum</code>, but we don’t want the second one in the
+documentation. Of course we can remove the doc strings from there, but
+then we loose the documentation in the code too. To avoid this problem
+we can use the API name. If you look carefully, you can see that the api
+name in the first function is <code>sum</code>, and in the second one is
+<code>internal</code>. If we run bashdoc as following:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bashdoc</span> <span class="at">-A</span> sum <span class="at">-o</span> doc.html script.bash</span></code></pre></div>
+<p>We will create documentation only for functions tagged as API
+<em>sum</em>. Please note that if you force a specific API tag, then
+functions or modules without declared API will be not documented.</p>
 </section>
 <section id="using-custom-stylesheet" class="level2">
 <h2>Using custom stylesheet</h2>
-<p>By default bashdoc using its own CSS stylesheet and HTML template, which is pretty nice, by the way, but if you want to use your own style and/or HTML template, you can use it passing paramenters <code>-s</code> (for style) and <code>-t</code> (for template) to the bashdoc command.</p>
-<p>Accepted styleshet is any file which contains valid CSS code. Accepted template is any template accepted by pandoc.</p>
+<p>By default bashdoc using its own CSS stylesheet and HTML template,
+which is pretty nice, by the way, but if you want to use your own style
+and/or HTML template, you can use it passing paramenters <code>-s</code>
+(for style) and <code>-t</code> (for template) to the bashdoc
+command.</p>
+<p>Accepted styleshet is any file which contains valid CSS code.
+Accepted template is any template accepted by pandoc.</p>
 <p>For example:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bashdoc</span> <span class="at">-s</span> mystyle.css <span class="at">-t</span> mytemplate.html <span class="at">-o</span> doc.html script.bash</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bashdoc</span> <span class="at">-s</span> mystyle.css <span class="at">-t</span> mytemplate.html <span class="at">-o</span> doc.html script.bash</span></code></pre></div>
 <hr />
 </section>
 </section>
@@ -424,10 +551,16 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h1>API Reference</h1>
 <section id="arg" class="level2 module">
 <h2 class="module">arg</h2>
-<p>The <code>arg</code> module provides a number of functions to parse arguments from command line. To use the <code>arg</code> module you need to create handler functions which will be called during the parser process. The handler functions should return the number of parameters comsumed from the parameter list. See example below for more information.</p>
+<p>The <code>arg</code> module provides a number of functions to parse
+arguments from command line. To use the <code>arg</code> module you need
+to create handler functions which will be called during the parser
+process. The handler functions should return the number of parameters
+comsumed from the parameter list. See example below for more
+information.</p>
 <section id="usage-example" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">opt_quiet ()</span> <span class="kw">{</span></span>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">opt_quiet ()</span> <span class="kw">{</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">QUIET</span><span class="op">=</span>true<span class="kw">;</span> <span class="cf">return</span> <span class="dv">1</span><span class="kw">;</span> <span class="co"># we consum only the -q param</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">create ()</span> <span class="kw">{</span> <span class="bu">echo</span> <span class="st">&quot;</span><span class="va">$arguments</span><span class="st">&quot;</span> }</span>
@@ -436,61 +569,86 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">arg::param</span> create <span class="st">&quot;arguments+&quot;</span>  <span class="st">&#39;argument to create subcommand&#39;</span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">arg::parse</span> <span class="st">&quot;</span><span class="va">$@</span><span class="st">&quot;</span></span></code></pre></div>
 </section>
-<section id="argopt-action-short-long-handler-help" class="level3 function">
-<h3 class="function">arg::opt <code>&lt;action&gt;</code> <code>&lt;short&gt;</code> <code>&lt;long&gt;</code> <code>&lt;handler&gt;</code> <code>[help]</code></h3>
+<section id="argopt-action-short-long-handler-help"
+class="level3 function">
+<h3 class="function">arg::opt <code>&lt;action&gt;</code>
+<code>&lt;short&gt;</code> <code>&lt;long&gt;</code>
+<code>&lt;handler&gt;</code> <code>[help]</code></h3>
 <p>set an option for a specific action argument.</p>
 <section id="parameters" class="level4">
 <h4>Parameters</h4>
 <dl>
 <dt><code>action</code></dt>
-<dd>the action for which the option will be added
+<dd>
+the action for which the option will be added
 </dd>
 <dt><code>short</code></dt>
-<dd>the short form of the option (usually prefixed by <code>-</code>)
+<dd>
+the short form of the option (usually prefixed by <code>-</code>)
 </dd>
 <dt><code>long</code></dt>
-<dd>the long form of the option (usually prefixed by <code>--</code>)
+<dd>
+the long form of the option (usually prefixed by <code>--</code>)
 </dd>
 <dt><code>handler</code></dt>
-<dd>function to handler when option is present.
+<dd>
+function to handler when option is present.
 </dd>
 </dl>
 </section>
 </section>
 <section id="argparseoptfail-cmdline" class="level3 function">
-<h3 class="function">arg::parse::opt::fail <code>&lt;cmdline&gt;</code></h3>
-<p>exit program with error 2 (cmdline error) interpreting cmdline passed as argument.</p>
+<h3 class="function">arg::parse::opt::fail
+<code>&lt;cmdline&gt;</code></h3>
+<p>exit program with error 2 (cmdline error) interpreting cmdline passed
+as argument.</p>
 <section id="parameters-1" class="level4">
 <h4>Parameters</h4>
 <dl>
 <dt><code>cmdline</code></dt>
-<dd>the cmdline which fails.
+<dd>
+the cmdline which fails.
 </dd>
 </dl>
 </section>
 </section>
-<section id="argparseoptlong-action-option-option-argument" class="level3 function">
-<h3 class="function">arg::parse::opt::long <code>&lt;action&gt;</code> <code>&lt;option&gt;</code> <code>[option</code> <code>argument]</code></h3>
-<p>set the specific long option for the action passed as argument. The option can be suffixed with a colon (:) to specify a mandatory argument.</p>
+<section id="argparseoptlong-action-option-option-argument"
+class="level3 function">
+<h3 class="function">arg::parse::opt::long <code>&lt;action&gt;</code>
+<code>&lt;option&gt;</code> <code>[option</code>
+<code>argument]</code></h3>
+<p>set the specific long option for the action passed as argument. The
+option can be suffixed with a colon (:) to specify a mandatory
+argument.</p>
 </section>
-<section id="argparseoptshort-action-option-option-argument" class="level3 function">
-<h3 class="function">arg::parse::opt::short <code>&lt;action&gt;</code> <code>&lt;option&gt;</code> <code>[option</code> <code>argument]</code></h3>
-<p>set the specific short option for the action passed as argument. The option can be suffixed with a colon (:) to specify a mandatory argument.</p>
+<section id="argparseoptshort-action-option-option-argument"
+class="level3 function">
+<h3 class="function">arg::parse::opt::short <code>&lt;action&gt;</code>
+<code>&lt;option&gt;</code> <code>[option</code>
+<code>argument]</code></h3>
+<p>set the specific short option for the action passed as argument. The
+option can be suffixed with a colon (:) to specify a mandatory
+argument.</p>
 </section>
-<section id="argaction-action-handler-help_message" class="level3 function">
-<h3 class="function">arg::action <code>&lt;action&gt;</code> <code>&lt;handler&gt;</code> <code>[help_message]</code></h3>
+<section id="argaction-action-handler-help_message"
+class="level3 function">
+<h3 class="function">arg::action <code>&lt;action&gt;</code>
+<code>&lt;handler&gt;</code> <code>[help_message]</code></h3>
 <p>set a new action in argument parser.</p>
 <section id="parameters-2" class="level4">
 <h4>Parameters</h4>
 <dl>
 <dt><code>action</code></dt>
-<dd>the action name to add to the parser
+<dd>
+the action name to add to the parser
 </dd>
 <dt><code>handler</code></dt>
-<dd>the function name to use as handler for this action.
+<dd>
+the function name to use as handler for this action.
 </dd>
 <dt><code>help_message</code></dt>
-<dd>a message to print on usage.
+<dd>
+a message to print on usage.
 </dd>
 </dl>
 </section>
@@ -506,19 +664,22 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Parameters</h4>
 <dl>
 <dt><code>text</code></dt>
-<dd>the main help string for the program
+<dd>
+the main help string for the program
 </dd>
 </dl>
 </section>
 </section>
 <section id="argmainaction-fun" class="level3 function">
 <h3 class="function">arg:::main::action <code>&lt;fun&gt;</code></h3>
-<p>Set the function handler for main action, used when no action defined.</p>
+<p>Set the function handler for main action, used when no action
+defined.</p>
 <section id="parameters-4" class="level4">
 <h4>Parameters</h4>
 <dl>
 <dt><code>fun</code></dt>
-<dd>the handler for the MAIN action.
+<dd>
+the handler for the MAIN action.
 </dd>
 </dl>
 </section>
@@ -530,37 +691,46 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Environment variables</h4>
 <dl>
 <dt><code>E</code></dt>
-<dd>the error code to return to OS on exit.
+<dd>
+the error code to return to OS on exit.
 </dd>
 </dl>
 </section>
 </section>
 <section id="argparseaction-action-arguments" class="level3 function">
-<h3 class="function">arg::parse::action <code>&lt;action&gt;</code> <code>[arguments]</code></h3>
+<h3 class="function">arg::parse::action <code>&lt;action&gt;</code>
+<code>[arguments]</code></h3>
 <p>parse arguments starting with action passed as argument.</p>
 </section>
 <section id="argparsearg-action-arguments" class="level3 function">
-<h3 class="function">arg::parse::arg <code>&lt;action&gt;</code> <code>[arguments]</code></h3>
-<p>parse arguments (not options) for specific action passed as argument.</p>
+<h3 class="function">arg::parse::arg <code>&lt;action&gt;</code>
+<code>[arguments]</code></h3>
+<p>parse arguments (not options) for specific action passed as
+argument.</p>
 </section>
 <section id="argparse-arguments" class="level3 function">
 <h3 class="function">arg::parse <code>[arguments]</code></h3>
 <p>parse arguments according with previous configured parser.</p>
 </section>
-<section id="argparam-action-parameter_name-help_str" class="level3 function">
-<h3 class="function">arg::param <code>&lt;action&gt;</code> <code>&lt;parameter_name&gt;</code> <code>[help_str]</code></h3>
+<section id="argparam-action-parameter_name-help_str"
+class="level3 function">
+<h3 class="function">arg::param <code>&lt;action&gt;</code>
+<code>&lt;parameter_name&gt;</code> <code>[help_str]</code></h3>
 <p>add position parameter to parser.</p>
 <section id="parameters-5" class="level4">
 <h4>Parameters</h4>
 <dl>
 <dt><code>action</code></dt>
-<dd>action where add the parameter
+<dd>
+action where add the parameter
 </dd>
 <dt><code>parameter_name</code></dt>
-<dd>the name of the paramenter
+<dd>
+the name of the paramenter
 </dd>
 <dt><code>help_str</code></dt>
-<dd>a help string for the parameter to show in usage
+<dd>
+a help string for the parameter to show in usage
 </dd>
 </dl>
 </section>
@@ -571,7 +741,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>The <code>cache</code> module provides a simple in-memory cache.</p>
 <section id="usage-example-1" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cache::put</span> <span class="st">&quot;key&quot;</span> <span class="st">&quot;val&quot;</span></span>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cache::put</span> <span class="st">&quot;key&quot;</span> <span class="st">&quot;val&quot;</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">cache::get</span> <span class="st">&quot;key&quot;</span></span></code></pre></div>
 </section>
 <section id="cacheget-key" class="level3 function">
@@ -579,62 +750,80 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>get the value of the key from the potion in-memory cache.</p>
 </section>
 <section id="cacheput-key-value" class="level3 function">
-<h3 class="function">cache::put <code>&lt;key&gt;</code> <code>&lt;value&gt;</code></h3>
+<h3 class="function">cache::put <code>&lt;key&gt;</code>
+<code>&lt;value&gt;</code></h3>
 <p>save the content of the specified key to the in-memory cache.</p>
 </section>
 </section>
 <section id="config" class="level2 module">
 <h2 class="module">config</h2>
-<p>The <code>config</code> module allows you to read configuration file in properties format</p>
+<p>The <code>config</code> module allows you to read configuration file
+in properties format</p>
 <section id="usage-example-2" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">config::load</span> configname ./config.properties</span>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">config::load</span> configname ./config.properties</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$(</span><span class="ex">config::get</span> configname key<span class="va">)</span></span></code></pre></div>
 </section>
 <section id="configload-table-file" class="level3 function">
-<h3 class="function">config::load <code>&lt;table&gt;</code> <code>&lt;file&gt;</code></h3>
-<p>read a configuration file passed as argument and save in the memory with specific table name.</p>
+<h3 class="function">config::load <code>&lt;table&gt;</code>
+<code>&lt;file&gt;</code></h3>
+<p>read a configuration file passed as argument and save in the memory
+with specific table name.</p>
 <section id="parameters-6" class="level4">
 <h4>Parameters</h4>
 <dl>
 <dt><code>table</code></dt>
-<dd>a name to identify the config table where file will be load.
+<dd>
+a name to identify the config table where file will be load.
 </dd>
 <dt><code>file</code></dt>
-<dd>path to a properties file to load.
+<dd>
+path to a properties file to load.
 </dd>
 </dl>
 </section>
 </section>
 <section id="configget-table-key-default" class="level3 function">
-<h3 class="function">config::get <code>&lt;table&gt;</code> <code>&lt;key&gt;</code> <code>[default]</code></h3>
-<p>outputs the specified configuration key in the table passed as argument. If key does not exists raise an error, unless default is passed as argument, in that case return default values.</p>
+<h3 class="function">config::get <code>&lt;table&gt;</code>
+<code>&lt;key&gt;</code> <code>[default]</code></h3>
+<p>outputs the specified configuration key in the table passed as
+argument. If key does not exists raise an error, unless default is
+passed as argument, in that case return default values.</p>
 <section id="parameters-7" class="level4">
 <h4>Parameters</h4>
 <dl>
 <dt><code>table</code></dt>
-<dd>the table name where to search key.
+<dd>
+the table name where to search key.
 </dd>
 <dt><code>key</code></dt>
-<dd>the key to search in config table
+<dd>
+the key to search in config table
 </dd>
 <dt><code>default</code></dt>
-<dd>default value to output if value is not found. By default an error is raised.
+<dd>
+default value to output if value is not found. By default an error is
+raised.
 </dd>
 </dl>
 </section>
 </section>
 <section id="configiter-table-pattern" class="level3 function">
-<h3 class="function">config::iter <code>&lt;table&gt;</code> <code>&lt;pattern&gt;</code></h3>
-<p>iterate over a specific configuration using pattern passed as argument and outputs keys with match.</p>
+<h3 class="function">config::iter <code>&lt;table&gt;</code>
+<code>&lt;pattern&gt;</code></h3>
+<p>iterate over a specific configuration using pattern passed as
+argument and outputs keys with match.</p>
 <section id="parameters-8" class="level4">
 <h4>Parameters</h4>
 <dl>
 <dt><code>table</code></dt>
-<dd>the table name to iterate
+<dd>
+the table name to iterate
 </dd>
 <dt><code>pattern</code></dt>
-<dd>a glob pattern to match in config keys.
+<dd>
+a glob pattern to match in config keys.
 </dd>
 </dl>
 </section>
@@ -650,13 +839,15 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Parameters</h4>
 <dl>
 <dt><code>url</code></dt>
-<dd>any URL valid for curl.
+<dd>
+any URL valid for curl.
 </dd>
 </dl>
 </section>
 <section id="usage-example-3" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl::get</span> http://example.com</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl::get</span> http://example.com</span></code></pre></div>
 </section>
 </section>
 <section id="curlsource-url" class="level3 function">
@@ -664,21 +855,28 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>sources a file from url</p>
 <section id="usage-example-4" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl::source</span> http://mydomain.com/file.bash</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl::source</span> http://mydomain.com/file.bash</span></code></pre></div>
 </section>
 </section>
 </section>
 <section id="doc" class="level2 module">
 <h2 class="module">doc</h2>
-<p>The <code>doc</code> module provides functions to convert bash source code to HTML, using markdown and specific CSS themes.</p>
+<p>The <code>doc</code> module provides functions to convert bash source
+code to HTML, using markdown and specific CSS themes.</p>
 <section id="docread_blocks-api" class="level3 function">
 <h3 class="function">doc::read_blocks <code>[api]</code></h3>
-<p>read and print blocks readed from stdin which match with specific api definition. If api is not provided all elements will be documentated, if api is provided, only elements with declared api matched with provided one will be documented. If api is provided, but is not declared in documentation, then item will be documentated too.</p>
+<p>read and print blocks readed from stdin which match with specific api
+definition. If api is not provided all elements will be documentated, if
+api is provided, only elements with declared api matched with provided
+one will be documented. If api is provided, but is not declared in
+documentation, then item will be documentated too.</p>
 <section id="parameters-10" class="level4">
 <h4>Parameters</h4>
 <dl>
 <dt><code>api</code></dt>
-<dd>a string which identify the API to be documented.
+<dd>
+a string which identify the API to be documented.
 </dd>
 </dl>
 </section>
@@ -686,13 +884,16 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Environment variables</h4>
 <dl>
 <dt><code>DOCSTRING</code></dt>
-<dd>The docstring comment which identify a special comment used for documentation. By default ‘sha-space’ (# ).
+<dd>
+The docstring comment which identify a special comment used for
+documentation. By default ‘sha-space’ (# ).
 </dd>
 </dl>
 </section>
 <section id="usage-example-5" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doc::read_blocks</span> v1 <span class="op">&lt;</span> script</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doc::read_blocks</span> v1 <span class="op">&lt;</span> script</span></code></pre></div>
 </section>
 </section>
 <section id="docoutput-file" class="level3 function">
@@ -702,19 +903,23 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Environment variables</h4>
 <dl>
 <dt><code>TITLE</code></dt>
-<dd>The document title.
+<dd>
+The document title.
 </dd>
 <dt><code>AUTHOR</code></dt>
-<dd>The document author.
+<dd>
+The document author.
 </dd>
 <dt><code>DATE</code></dt>
-<dd>The date of the produced document.
+<dd>
+The date of the produced document.
 </dd>
 </dl>
 </section>
 <section id="usage-example-6" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doc::output</span> file</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doc::output</span> file</span></code></pre></div>
 </section>
 </section>
 <section id="docgenerate-file" class="level3 function">
@@ -724,25 +929,29 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Environment variables</h4>
 <dl>
 <dt><code>OUTPUT</code></dt>
-<dd>filename of the output file or stdout if not provided.
+<dd>
+filename of the output file or stdout if not provided.
 </dd>
 </dl>
 </section>
 <section id="usage-example-7" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doc::generate</span> file</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doc::generate</span> file</span></code></pre></div>
 </section>
 </section>
 </section>
 <section id="err" class="level2 module">
 <h2 class="module">err</h2>
-<p>The <code>err</code> module offers a way to stop potion execution with a traceback.</p>
+<p>The <code>err</code> module offers a way to stop potion execution
+with a traceback.</p>
 <section id="errtrace" class="level3 function">
 <h3 class="function">err::trace</h3>
 <p>print to stderr a traceback of an error.</p>
 <section id="usage-example-8" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">false</span> <span class="kw">||</span> <span class="ex">err::trace</span> <span class="st">&quot;Error because of false&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">false</span> <span class="kw">||</span> <span class="ex">err::trace</span> <span class="st">&quot;Error because of false&quot;</span></span></code></pre></div>
 </section>
 </section>
 </section>
@@ -756,10 +965,13 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="mutex" class="level2 module">
 <h2 class="module">mutex</h2>
-<p>The <code>mutex</code> module provides a way to ensure critical region access across different processes. NOTE this module does not work fine on some filesystems, like NFS, AFS and others.</p>
+<p>The <code>mutex</code> module provides a way to ensure critical
+region access across different processes. NOTE this module does not work
+fine on some filesystems, like NFS, AFS and others.</p>
 <section id="usage-example-9" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mutex::run</span> mymutex sleep 10 <span class="co"># run a sleep in a critical region</span></span>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mutex::run</span> mymutex sleep 10 <span class="co"># run a sleep in a critical region</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mutex::adquire</span> mymutex</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># do some critical changes</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="ex">mutex::release</span> mymutex</span></code></pre></div>
@@ -771,7 +983,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Parameters</h4>
 <dl>
 <dt><code>name</code></dt>
-<dd>the name to identify this mutex
+<dd>
+the name to identify this mutex
 </dd>
 </dl>
 </section>
@@ -783,25 +996,30 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Parameters</h4>
 <dl>
 <dt><code>name</code></dt>
-<dd>the name to identify this mutex
+<dd>
+the name to identify this mutex
 </dd>
 </dl>
 </section>
 </section>
 <section id="mutexrun-name-command-args" class="level3 function">
-<h3 class="function">mutex::run <code>&lt;name&gt;</code> <code>&lt;command&gt;</code> <code>[args]</code></h3>
+<h3 class="function">mutex::run <code>&lt;name&gt;</code>
+<code>&lt;command&gt;</code> <code>[args]</code></h3>
 <p>run a command protected by mutex named as argument name.</p>
 <section id="parameters-13" class="level4">
 <h4>Parameters</h4>
 <dl>
 <dt><code>name</code></dt>
-<dd>the name to identify this mutex
+<dd>
+the name to identify this mutex
 </dd>
 <dt><code>command</code></dt>
-<dd>the command to run
+<dd>
+the command to run
 </dd>
 <dt><code>args</code></dt>
-<dd>optional arguments to the command.
+<dd>
+optional arguments to the command.
 </dd>
 </dl>
 </section>
@@ -809,7 +1027,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="os" class="level2 module">
 <h2 class="module">os</h2>
-<p>The <code>os</code> module provides specified functions to guess the operating system related variables.</p>
+<p>The <code>os</code> module provides specified functions to guess the
+operating system related variables.</p>
 <section id="osfamily" class="level3 function">
 <h3 class="function">os::family</h3>
 <p>print to stdout the operating system family</p>
@@ -820,7 +1039,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="osrelease" class="level3 function">
 <h3 class="function">os::release</h3>
-<p>print to stdout the properly release of operating system provider.</p>
+<p>print to stdout the properly release of operating system
+provider.</p>
 </section>
 <section id="ospath-file" class="level3 function">
 <h3 class="function">os::path <code>&lt;file&gt;</code></h3>
@@ -829,7 +1049,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Parameters</h4>
 <dl>
 <dt><code>file</code></dt>
-<dd>the file name to find the full path.
+<dd>
+the file name to find the full path.
 </dd>
 </dl>
 </section>
@@ -837,7 +1058,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Environment variables</h4>
 <dl>
 <dt><code>PATH</code></dt>
-<dd>contains the path to search file
+<dd>
+contains the path to search file
 </dd>
 </dl>
 </section>
@@ -845,7 +1067,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="os.ubuntu" class="level2 module">
 <h2 class="module">os.ubuntu</h2>
-<p>The <code>os.ubuntu</code> module extends <code>os</code> module adding specific functions for Ubuntu based systems.</p>
+<p>The <code>os.ubuntu</code> module extends <code>os</code> module
+adding specific functions for Ubuntu based systems.</p>
 <section id="osrelaseubuntu" class="level3 function">
 <h3 class="function">os::relase::ubuntu</h3>
 <p>return specific relese for ubuntu operating systems.</p>
@@ -853,27 +1076,35 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="out" class="level2 module">
 <h2 class="module">out</h2>
-<p>The <code>out</code> module provides functions to output messages in stderr or stdout.</p>
+<p>The <code>out</code> module provides functions to output messages in
+stderr or stdout.</p>
 <section id="outlog-message-message_type" class="level3 function">
-<h3 class="function">out::log <code>&lt;message&gt;</code> <code>[message_type]</code></h3>
-<p>print to stdout a log line with specified message and prefixed by date and message_type.</p>
+<h3 class="function">out::log <code>&lt;message&gt;</code>
+<code>[message_type]</code></h3>
+<p>print to stdout a log line with specified message and prefixed by
+date and message_type.</p>
 <section id="environment-variables-5" class="level4">
 <h4>Environment variables</h4>
 <dl>
 <dt><code>DATE_FORMAT</code></dt>
-<dd>defines the format for the datetime, in regular date(1) format.
+<dd>
+defines the format for the datetime, in regular date(1) format.
 </dd>
 <dt><code>COLOR_DATE</code></dt>
-<dd>defines the color to use (if available) to print the date.
+<dd>
+defines the color to use (if available) to print the date.
 </dd>
 <dt><code>COLOR_MESSAGE</code></dt>
-<dd>defines the color to use to print the message.
+<dd>
+defines the color to use to print the message.
 </dd>
 <dt><code>COLOR_NONE</code></dt>
-<dd>defines the sequence to reset defined color.
+<dd>
+defines the sequence to reset defined color.
 </dd>
 <dt><code>QUIET</code></dt>
-<dd>if true do not show any messages
+<dd>
+if true do not show any messages
 </dd>
 </dl>
 </section>
@@ -885,7 +1116,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Environment variables</h4>
 <dl>
 <dt><code>COLOR_INFO</code></dt>
-<dd>defines the color to be used in informational messages.
+<dd>
+defines the color to be used in informational messages.
 </dd>
 </dl>
 </section>
@@ -898,7 +1130,9 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Environment variables</h4>
 <dl>
 <dt><code>COLOR_FAIL</code></dt>
-<dd>defines the color to be used in this kind of messages. E: if set exit program with error code defined in the variable
+<dd>
+defines the color to be used in this kind of messages. E: if set exit
+program with error code defined in the variable
 </dd>
 </dl>
 </section>
@@ -911,7 +1145,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Environment variables</h4>
 <dl>
 <dt><code>COLOR_WARN</code></dt>
-<dd>defines the color to be used in this kind of messages.
+<dd>
+defines the color to be used in this kind of messages.
 </dd>
 </dl>
 </section>
@@ -924,7 +1159,27 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Environment variables</h4>
 <dl>
 <dt><code>COLOR_USER</code></dt>
-<dd>defines the color to be used in this kind of messages.
+<dd>
+defines the color to be used in this kind of messages.
+</dd>
+</dl>
+</section>
+</section>
+</section>
+<section id="proc" class="level2 module">
+<h2 class="module">proc</h2>
+<p>The <code>proc</code> module provides a number of functions to manage
+parallel processes</p>
+<section id="procwaitn-number" class="level3 function">
+<h3 class="function">proc::waitn <code>[number]</code></h3>
+<p>wait for n procs to finished, or for everyone if no number
+specify</p>
+<section id="parameters-15" class="level4">
+<h4>Parameters</h4>
+<dl>
+<dt><code>number</code></dt>
+<dd>
+the number of proccess to wait for or none if wait for everyone.
 </dd>
 </dl>
 </section>
@@ -932,36 +1187,44 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="std" class="level2 module">
 <h2 class="module">std</h2>
-<p>The <code>std</code> module contains a numer of standard functions usefull to progamming in bash.</p>
+<p>The <code>std</code> module contains a numer of standard functions
+usefull to progamming in bash.</p>
 <section id="stdquit" class="level3 function">
 <h3 class="function">std::quit</h3>
 <p>perform an exit clean of the running program.</p>
 </section>
 <section id="stdadd_quit_handler-func_name" class="level3 function">
-<h3 class="function">std::add_quit_handler <code>&lt;func_name&gt;</code></h3>
-<p>Add func_name as handler to execute before quit the application. When the application finished, then the functions registered as quit handlers will be executed in the same order than they were registered.</p>
-<section id="parameters-15" class="level4">
+<h3 class="function">std::add_quit_handler
+<code>&lt;func_name&gt;</code></h3>
+<p>Add func_name as handler to execute before quit the application. When
+the application finished, then the functions registered as quit handlers
+will be executed in the same order than they were registered.</p>
+<section id="parameters-16" class="level4">
 <h4>Parameters</h4>
 <dl>
 <dt><code>func_name</code></dt>
-<dd>the name of the function to be registered.
+<dd>
+the name of the function to be registered.
 </dd>
 </dl>
 </section>
 <section id="usage-example-10" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">somefunc ()</span> <span class="kw">{</span> <span class="bu">echo</span> <span class="st">&quot;exiting&quot;</span><span class="kw">;</span> <span class="kw">}</span></span>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">somefunc ()</span> <span class="kw">{</span> <span class="bu">echo</span> <span class="st">&quot;exiting&quot;</span><span class="kw">;</span> <span class="kw">}</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">std::add_quit_handler</span> somefunc</span></code></pre></div>
 </section>
 </section>
 <section id="stdhmac-text" class="level3 function">
 <h3 class="function">std::hmac <code>&lt;text&gt;</code></h3>
-<p>outputs the calculated HMAC using SHA1 for the text passed as argument.</p>
-<section id="parameters-16" class="level4">
+<p>outputs the calculated HMAC using SHA1 for the text passed as
+argument.</p>
+<section id="parameters-17" class="level4">
 <h4>Parameters</h4>
 <dl>
 <dt><code>text</code></dt>
-<dd>a plain text to be hashed.
+<dd>
+a plain text to be hashed.
 </dd>
 </dl>
 </section>
@@ -969,54 +1232,63 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Environment variables</h4>
 <dl>
 <dt><code>ALGO</code></dt>
-<dd>set the algorithm to use for calculate HMAC. Valid values are: sha1, md5, sha256, sha512. The proper helper tool must be installed on the system.
+<dd>
+set the algorithm to use for calculate HMAC. Valid values are: sha1,
+md5, sha256, sha512. The proper helper tool must be installed on the
+system.
 </dd>
 </dl>
 </section>
 <section id="usage-example-11" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">std::hmac</span> <span class="st">&quot;hello world&quot;</span></span>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">std::hmac</span> <span class="st">&quot;hello world&quot;</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="va">ALGO</span><span class="op">=</span>md5 <span class="ex">std::hmac</span> <span class="st">&quot;hello world&quot;</span></span></code></pre></div>
 </section>
 </section>
 <section id="stdmute-command" class="level3 function">
 <h3 class="function">std::mute <code>&lt;command&gt;</code></h3>
-<p>mute outputs, including <code>stderr</code> when running a command, alias or function</p>
-<section id="parameters-17" class="level4">
+<p>mute outputs, including <code>stderr</code> when running a command,
+alias or function</p>
+<section id="parameters-18" class="level4">
 <h4>Parameters</h4>
 <dl>
 <dt><code>command</code></dt>
-<dd>the command to run muted.
+<dd>
+the command to run muted.
 </dd>
 </dl>
 </section>
 </section>
 <section id="stdstrin-str1-str2" class="level3 function">
-<h3 class="function">std::strin <code>&lt;str1&gt;</code> <code>&lt;str2&gt;</code></h3>
-<p>return true if <code>str2</code> is into <code>str1</code>, or false otherwise.</p>
-<section id="parameters-18" class="level4">
+<h3 class="function">std::strin <code>&lt;str1&gt;</code>
+<code>&lt;str2&gt;</code></h3>
+<p>return true if <code>str2</code> is into <code>str1</code>, or false
+otherwise.</p>
+<section id="parameters-19" class="level4">
 <h4>Parameters</h4>
 <dl>
 <dt><code>str1</code></dt>
-<dd>the string which could be contain <code>str2</code> and wants to evaluate
+<dd>
+the string which could be contain <code>str2</code> and wants to
+evaluate
 </dd>
 <dt><code>str2</code></dt>
-<dd>the string to find into <code>str1</code>
+<dd>
+the string to find into <code>str1</code>
 </dd>
 </dl>
 </section>
 <section id="usage-example-12" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">std::strin</span> <span class="st">&quot;somelargestring&quot;</span> <span class="st">&quot;some&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">std::strin</span> <span class="st">&quot;somelargestring&quot;</span> <span class="st">&quot;some&quot;</span></span></code></pre></div>
 </section>
-</section>
-<section id="stdsleep-seconds" class="level3 function">
-<h3 class="function">std::sleep <code>&lt;seconds&gt;</code></h3>
-<p>sleep for specified number of seconds. This function is pure-bash, so not need sleep(1) command.</p>
 </section>
 <section id="stdfunc-func_name" class="level3 function">
 <h3 class="function">std::func <code>&lt;func_name&gt;</code></h3>
-<p>return true if function name passed as argument is defined, or false otherwise.</p>
+<p>return true if function name passed as argument is defined, or false
+otherwise.</p>
 </section>
 <section id="stdarch" class="level3 function">
 <h3 class="function">std::arch</h3>
@@ -1029,17 +1301,23 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Environment variables</h4>
 <dl>
 <dt><code>TZ</code></dt>
-<dd>the timezone to use to print the timestamp, by default get the timezone from the system.
+<dd>
+the timezone to use to print the timestamp, by default get the timezone
+from the system.
 </dd>
 </dl>
 </section>
 </section>
 <section id="stdparse-arg_string" class="level3 function">
 <h3 class="function">std::parse <code>&lt;arg_string&gt;</code></h3>
-<p>parse an argument string in the form key=value and promote this variables to environment. The key <code>name</code> is mandatory. If the first parameter has no key, key <code>name</code> is using by default. The <code>name</code> parameter must be the first one.</p>
+<p>parse an argument string in the form key=value and promote this
+variables to environment. The key <code>name</code> is mandatory. If the
+first parameter has no key, key <code>name</code> is using by default.
+The <code>name</code> parameter must be the first one.</p>
 <section id="usage-example-13" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">std::parse</span> <span class="st">&quot;name=Jhon&quot;</span> <span class="st">&quot;age=90&quot;</span></span>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">std::parse</span> <span class="st">&quot;name=Jhon&quot;</span> <span class="st">&quot;age=90&quot;</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;</span><span class="va">$name</span><span class="st"> has </span><span class="va">$age</span><span class="st"> years old&quot;</span></span></code></pre></div>
 </section>
 </section>
@@ -1050,7 +1328,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h4>Environment variables</h4>
 <dl>
 <dt><code>PRETEND</code></dt>
-<dd>if true do nothing.
+<dd>
+if true do nothing.
 </dd>
 </dl>
 </section>
@@ -1065,40 +1344,50 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="stdsort-array" class="level3 function">
 <h3 class="function">std::sort <code>&lt;array&gt;</code></h3>
-<p>sort an array using qsort in pure bash (not very efficient) and return the output to an special variable called <code>sort_ret</code>.</p>
+<p>sort an array using qsort in pure bash (not very efficient) and
+return the output to an special variable called
+<code>sort_ret</code>.</p>
 <section id="environment-variables-13" class="level4">
 <h4>Environment variables</h4>
 <dl>
 <dt><code>sort_ret</code></dt>
-<dd>will contain the sorted array
+<dd>
+will contain the sorted array
 </dd>
 </dl>
 </section>
 </section>
 <section id="str2array-string-separator" class="level3 function">
-<h3 class="function">str2array <code>&lt;string&gt;</code> <code>[separator]</code></h3>
-<p>create a new array with the contents of the string, using separator passed as argument.</p>
-<section id="parameters-19" class="level4">
+<h3 class="function">str2array <code>&lt;string&gt;</code>
+<code>[separator]</code></h3>
+<p>create a new array with the contents of the string, using separator
+passed as argument.</p>
+<section id="parameters-20" class="level4">
 <h4>Parameters</h4>
 <dl>
 <dt><code>string</code></dt>
-<dd>the string to covert to array
+<dd>
+the string to covert to array
 </dd>
 <dt><code>separator</code></dt>
-<dd>the character to use as separator, by default use comma.
+<dd>
+the character to use as separator, by default use comma.
 </dd>
 </dl>
 </section>
 <section id="usage-example-14" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">str2array</span> <span class="st">&quot;one,two,three&quot;</span></span>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">str2array</span> <span class="st">&quot;one,two,three&quot;</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;</span><span class="va">${str2array_ret</span><span class="op">[@]</span><span class="va">}</span><span class="st">&quot;</span></span></code></pre></div>
 </section>
 </section>
 </section>
 <section id="term" class="level2 module">
 <h2 class="module">term</h2>
-<p>The <code>term</code> module provides functions related with terminal configuration. This module also define some useful color variables to be used in <code>out</code> module.</p>
+<p>The <code>term</code> module provides functions related with terminal
+configuration. This module also define some useful color variables to be
+used in <code>out</code> module.</p>
 <section id="termattached" class="level3 function">
 <h3 class="function">term::attached</h3>
 <p>return true if output is a terminal, false otherwise</p>
@@ -1109,29 +1398,39 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="terminit" class="level3 function">
 <h3 class="function">term::init</h3>
-<p>initialize terminal, in theory you never need to call this function, unless you want to change your terminal online.</p>
+<p>initialize terminal, in theory you never need to call this function,
+unless you want to change your terminal online.</p>
 </section>
 </section>
 <section id="tmp" class="level2 module">
 <h2 class="module">tmp</h2>
-<p>The <code>tmp</code> module provides functions to create and destroy temporary directories. Even if you don’t remove the temporary file or directoy explicitely, the directory or file will be deleted when program exits.</p>
+<p>The <code>tmp</code> module provides functions to create and destroy
+temporary directories. Even if you don’t remove the temporary file or
+directoy explicitely, the directory or file will be deleted when program
+exits.</p>
 <section id="environment-variables-14" class="level4">
 <h4>Environment variables</h4>
 <dl>
 <dt><code>TMPDIR</code></dt>
-<dd>a subdirectory into /tmp to use to create temporary files or directories.
+<dd>
+a subdirectory into /tmp to use to create temporary files or
+directories.
 </dd>
 <dt><code>BLIB_TMPDIR</code></dt>
-<dd>a full path to temporary directory to use to store files or other directories.
+<dd>
+a full path to temporary directory to use to store files or other
+directories.
 </dd>
 </dl>
 </section>
 <section id="usage-example-15" class="level4">
 <h4>Usage example</h4>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tmp::create</span></span>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tmp::create</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># do some actions in current directory, which is temporary one</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ex">tmp::destroy</span></span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$(</span><span class="ex">tmp::file</span><span class="va">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$(</span><span class="ex">tmp::file</span><span class="va">)</span></span></code></pre></div>
 </section>
 <section id="tmpcreate-dirname" class="level3 function">
 <h3 class="function">tmp::create <code>&lt;dirname&gt;</code></h3>
@@ -1147,7 +1446,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="tmpexists-name" class="level3 function">
 <h3 class="function">tmp::exists <code>&lt;name&gt;</code></h3>
-<p>return true if the specified file name or directory name is a temporary file or directory.</p>
+<p>return true if the specified file name or directory name is a
+temporary file or directory.</p>
 </section>
 <section id="tmpfile" class="level3 function">
 <h3 class="function">tmp::file</h3>
@@ -1155,15 +1455,20 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </section>
 <section id="tmptouch-name" class="level3 function">
 <h3 class="function">tmp::touch <code>&lt;name&gt;</code></h3>
-<p>create a temporary file with specified name in temporary directory.</p>
+<p>create a temporary file with specified name in temporary
+directory.</p>
 </section>
 </section>
 <section id="version" class="level2 module">
 <h2 class="module">version</h2>
-<p>The <code>version</code> module provides a number of functions to handle version numbers.</p>
+<p>The <code>version</code> module provides a number of functions to
+handle version numbers.</p>
 <section id="versioncmp-version1-version2" class="level3 function">
-<h3 class="function">version::cmp <code>&lt;version1&gt;</code> <code>&lt;version2&gt;</code></h3>
-<p>compare two version numbers, return -1 (255) if version1 is greater than version2, return 1 if version2 is greater than version1 and 0 if both are equal</p>
+<h3 class="function">version::cmp <code>&lt;version1&gt;</code>
+<code>&lt;version2&gt;</code></h3>
+<p>compare two version numbers, return -1 (255) if version1 is greater
+than version2, return 1 if version2 is greater than version1 and 0 if
+both are equal</p>
 <hr />
 </section>
 </section>
